@@ -1,0 +1,23 @@
+.container {
+  color: #333333;
+  text-decoration: none;
+}
+
+.main-wrapper {
+  margin: 0 4%;
+  display: flex;
+  gap: 2%;
+}
+
+app-category {
+  width: 20%;
+  min-width: 160px;
+}
+
+.main-right {
+  width: 80%;
+}
+
+a {
+  cursor: pointer;
+}

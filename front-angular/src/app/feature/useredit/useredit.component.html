@@ -1,0 +1,27 @@
+<div class="useredit-wrapper">
+  <div class="useredit-field">
+    <h2>ユーザー情報編集</h2>
+    <form class="useredit-form" action="">
+      <label for="displayName">
+        displayName: <input type="text">
+      </label>
+      <label for="photoURL">
+        UserPicture: <input type="file" name="photoURL" (change)="previewPhoto($event)">
+      </label>
+      <img class="previewphoto" [src]=userService.photoSrc>
+      <label for="userText">
+        UserProfile: <textarea name="" id="" cols="30" rows="10"></textarea>
+      </label>
+      <label for="">
+        twitter url: <input type="text">
+      </label>
+      <label for="">
+        instagram url: <input type="text">
+      </label>
+      <div class="btn-field">
+        <button class="btn cancel" routerLink="/mypage">キャンセル</button>
+        <button class="btn submit" type="submit">更新する</button>
+      </div>
+    </form>
+  </div>
+</div>

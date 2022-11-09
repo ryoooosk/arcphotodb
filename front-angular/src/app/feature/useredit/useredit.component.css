@@ -1,0 +1,47 @@
+.useredit-wrapper {
+  width: 100%;
+}
+
+.useredit-field {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.useredit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.useredit-form input,textarea {
+  margin-left: 40px;
+}
+
+.previewphoto {
+  width: 200px;
+}
+
+.btn-field {
+  display: flex;
+  gap: 20px;
+}
+
+.btn {
+  margin-top: 30px;
+  border: none;
+  border-radius: 4px;
+  width: 100px;
+  padding: 5px 10px;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  color: #333333;
+}
+
+.cancel {
+  font-weight: 500;
+}
+
+.submit {
+  font-weight: 600;
+}

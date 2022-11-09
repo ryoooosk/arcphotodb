@@ -1,0 +1,13 @@
+<header>
+  <div class="title">
+    <a href="/"><h1 class="title-name">A+U photo</h1></a>
+  </div>
+  <div class="header-right">
+    <div class="search">
+      <span>Search</span>
+      <input class="search-box" type="text" placeholder="検索できるよ">
+    </div>
+    <a routerLink="mypage"><span class="user-name">{{ this.userService.currentUser.displayName }}</span> さん</a>
+    <button class="btn" routerLink="signup">Sign-Up</button>
+  </div>
+</header>

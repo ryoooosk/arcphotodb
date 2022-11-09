@@ -1,0 +1,41 @@
+.newuser-wrapper {
+  width: 65%;
+  margin: 0 auto;
+  align-items: center;
+  max-width: 700px;
+}
+
+.heading {
+  margin-bottom: 35px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 120px;
+}
+
+.label {
+  position: relative;
+}
+
+.input-box {
+  position: absolute;
+  right: 35px;
+  width: 55%;
+  min-width: 200px;
+}
+
+.previewphoto {
+  width: 200px;
+}
+
+.submit-btn {
+  width: 93%;
+  height: 35px;
+  border: 1px solid #333333;
+  border-radius: 8px;
+  letter-spacing: 0.07rem;
+  cursor: pointer;
+}

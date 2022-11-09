@@ -1,0 +1,25 @@
+<div class="signup-wrapper">
+  <h3>ユーザー登録</h3>
+
+  <!-- テンプレート駆動フォーム -->
+  <!-- #form=ngForm テンプレート参照変数を使ってngFormディレクティブを代入 -->
+  <!-- 通常テンプレート変数の右辺を指定すると特定のディレクティブやコンポーネントを参照する -->
+  <form class="email-form" #form=ngForm (ngSubmit)="signupEmail(form)">
+    <h4>メールアドレスで登録する</h4>
+    <div class="signup-form">
+      <div class="input-title">
+        <span class="email">Email </span>
+        <span class="password">Password </span>
+      </div>
+      <div class="input-form">
+        <input [ngModel]="user.email" name="email" class="input-box" type="email">
+        <input [ngModel]="user.password" name="password" class="input-box" type="password">
+      </div>
+    </div>
+    <button class="submit-btn" type="submit">メールアドレスで登録する</button>
+  </form>
+
+  <label for="signup-google">
+    <button class="google-btn" (click)="signupGoogle()">Googleアカウントで登録する</button>
+  </label>
+</div>

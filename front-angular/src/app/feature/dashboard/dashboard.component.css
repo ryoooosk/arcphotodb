@@ -1,0 +1,18 @@
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5px;
+}
+
+.box {
+  background-color: darkgray;
+  border: none;
+
+  /* heightがwidthと同じになるようにしたい */
+}
+
+img {
+  width: 100%;
+  min-width: 200px;
+  min-height: 200px;
+}

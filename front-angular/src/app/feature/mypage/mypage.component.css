@@ -1,0 +1,66 @@
+a {
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.mypage-wrapper {
+  width: 100%;
+}
+
+.mypage-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  width: 90%;
+  margin: 0 auto;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #333333;
+}
+
+.profile {
+  padding: 0 5px;
+}
+
+.mypage-header-left {
+  width: 30%;
+  background-color: lightgray;
+  border-radius: 100px;
+}
+
+.user-picture {
+  width: 100%;
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sns-btn {
+  background-color: #efefef;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.user-action {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.edit-btn {
+  width: 60%;
+  height: 35px;
+  background-color: #efefef;
+  border: none;
+  border-radius: 5px;
+  letter-spacing: 0.05rem;
+  cursor: pointer;
+}
+

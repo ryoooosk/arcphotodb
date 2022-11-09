@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "arcphotodb-69691": {
+      "hosting": {
+        "front-angular": [
+          "arcphotodb-69691"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "arcphotodb-69691"
+  }
+}

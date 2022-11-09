@@ -1,0 +1,34 @@
+<div class="mypage-wrapper">
+
+  <div class="mypage-header">
+
+    <div class="mypage-header-left">
+      <img class="user-picture" src="{{ this.userService.currentUser.photoURL }}" alt="">
+    </div>
+
+    <div class="mypage-header-right">
+      <div class="user-info">
+        <h3>{{ this.userService.currentUser.displayName }}</h3>
+        <a class="sns-url" href="http://instagram.com"><button class="sns-btn">SNS</button></a>
+      </div>
+      <div class="user-action">
+        <p>投稿数: <span class="bold">100</span> 件</p>
+        <!-- いいねの絵文字 -->
+        <a>いいねした数: <span class="bold">1000</span> 回</a>
+        <!-- 保存の絵文字 -->
+        <a>保存数: <span class="bold">10</span> 個</a>
+      </div>
+      <p class="profile">デモデモデモデモデモデモデモデモデモ</p>
+      <div class="edit-field">
+        <button class="edit-btn" routerLink="/useredit">プロフィールを編集する</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mypage-main">
+
+  </div>
+
+
+</div>

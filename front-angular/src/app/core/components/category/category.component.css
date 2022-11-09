@@ -1,0 +1,38 @@
+.main-left {
+  background-color: lightgray;
+  border-radius: 9px;
+  padding: 8%;
+}
+
+a {
+  cursor: pointer;
+}
+
+.main-left h4 {
+  margin: 5px 0 15px 0;
+}
+
+p {
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin-left: 15px;
+  text-decoration: none;
+  list-style: none;
+}
+
+input, label {
+  cursor: pointer;
+}
+
+.hide {
+  display: none;
+}
+
