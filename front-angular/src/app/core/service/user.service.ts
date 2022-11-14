@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Auth, signInWithPopup, getAuth, updateProfile, onAuthStateChanged } from '@angular/fire/auth';
 import { createUserWithEmailAndPassword, GoogleAuthProvider } from '@firebase/auth';
 import { getDownloadURL, getStorage, ref, uploadBytes } from '@angular/fire/storage';
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, setDoc, doc } from "firebase/firestore";
 
 
 @Injectable({
@@ -87,35 +87,31 @@ export class UserService {
   }
 
   registerUserInfo(value:{displayName: string, userText?: string | null}): any {
-    return onAuthStateChanged(this.auth, async (user) => {
+    onAuthStateChanged(this.auth, async (user) => {
+      // ログイン状態であれば下記を実行する
       if(user) {
         console.log(user);
 
-        // AuthenticationとClooud FirestoreにdisplayNameを保存
+        // 先にドキュメントとコレクションを作り、一つずつ入れていく??
+
         this.currentUser.displayName = value.displayName;
-        addDoc(collection(this.db, "users"), {
-          displayName: value.displayName
-        });
 
         // 写真がある場合、AuthenticationとCloud FirestoreにphotoURLを保存
         if(this.file) {
           // 参照パスを設定
           this.storageRef = ref(this.storage, `userphoto/${this.file.name}`);
-          uploadBytes(this.storageRef, this.file, this.metadata)
+
+          await uploadBytes(this.storageRef, this.file, this.metadata)
             .then((_) => {
               console.log('Upload Blob File!');
+              // file変数を初期化
               this.file = null;
 
+              // Cloud StorageのURLを取得し、保存する
               getDownloadURL(this.storageRef)
                 .then((downloadURL) => {
                   console.log('Get DownloadURL!');
                   this.currentUser.photoURL = downloadURL;
-
-                  // FirestoreにphotoURLを保存
-                  addDoc(collection(this.db, "users"), {
-                    photoURL: downloadURL
-                  })
-
                   // Authenticationのuserをアップデート
                   const value = this.currentUser;
                   updateProfile(this.auth.currentUser, value)
@@ -124,23 +120,15 @@ export class UserService {
             })
         }
 
-        // userTextがあったらFirestoreに保存
-        if(value.userText) {
-          addDoc(collection(this.db, "users"), {
-            userText: value.userText
-          });
-          console.log("Document written!");
-        }
-
-        // 上までの非同期処理が終了したら下の処理を実行したい
-        // 現状非同期処理を待てず先に実行されてしまう
+        // await同士は同期処理になるものの、uploadBytesのthenの終了前に↓が走り始めてしまう。
         await updateProfile(this.auth.currentUser, this.currentUser)
           .then((_) => console.log('updateProfile!'));
-        await addDoc(collection(this.db, "users") ,{
+        await setDoc(doc(this.db, "users", user.uid) ,{
           displayName: this.currentUser.displayName,
           photoURL: this.currentUser.photoURL,
           userText: value.userText,
-        }).then(() => console.log('addDoc complete!'));
+        },{merge: true})
+          .then(() => console.log('addDoc complete!'));
 
       } else {
         console.log('ログインしていません');
@@ -148,6 +136,7 @@ export class UserService {
       }
 
     });
+
   }
 
 }
