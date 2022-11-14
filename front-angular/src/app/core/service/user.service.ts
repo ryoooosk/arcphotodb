@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Auth, signInWithPopup, getAuth, updateProfile, onAuthStateChanged } from '@angular/fire/auth';
 import { createUserWithEmailAndPassword, GoogleAuthProvider } from '@firebase/auth';
 import { getDownloadURL, getStorage, ref, uploadBytes } from '@angular/fire/storage';
-import { getFirestore, setDoc, doc } from "firebase/firestore";
+import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
 
 
 @Injectable({
@@ -52,6 +52,16 @@ export class UserService {
 
   // Cloud Firestore
   private db = getFirestore();
+
+  public userInfo: {
+    userText: any,
+    twiiterUrl: string | null | undefined,
+    instagramUrl: string | null | undefined
+  } = {
+    userText: "",
+    twiiterUrl: "",
+    instagramUrl: ""
+  };
 
 
   // Functions
@@ -106,13 +116,12 @@ export class UserService {
               console.log('Upload Blob File!');
               // file変数を初期化
               this.file = null;
-
               // Cloud StorageのURLを取得し、保存する
               getDownloadURL(this.storageRef)
                 .then((downloadURL) => {
                   console.log('Get DownloadURL!');
                   this.currentUser.photoURL = downloadURL;
-                  // Authenticationのuserをアップデート
+                  // Authenticationのuserをアップデート←下の非同期処理が先に走ってくれれば不要。
                   const value = this.currentUser;
                   updateProfile(this.auth.currentUser, value)
                     .then((_) => console.log('updateProfile (if File)!'));
@@ -137,6 +146,27 @@ export class UserService {
 
     });
 
+  }
+
+  getUserInfo() {
+    onAuthStateChanged(this.auth, async (user) => {
+      if(user) {
+        this.currentUser.displayName = user.displayName;
+        this.currentUser.photoURL = user.photoURL;
+        console.log(this.currentUser);
+
+        const docRef = doc(this.db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if(docSnap.exists()) {
+          const userInfo = docSnap.data();
+          console.log(userInfo);
+          this.userInfo.userText = userInfo['userText'];
+        } else {
+          console.log("No such document!");
+        }
+      }
+    })
   }
 
 }

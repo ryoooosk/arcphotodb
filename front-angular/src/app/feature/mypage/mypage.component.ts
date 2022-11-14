@@ -11,17 +11,10 @@ export class MypageComponent implements OnInit {
 
   constructor(
     protected userService: UserService,
-    private auth: Auth,
   ) { }
 
   ngOnInit(): void {
-    onAuthStateChanged(this.auth, (user) => {
-      if(user) {
-        this.userService.currentUser.displayName = user.displayName;
-        this.userService.currentUser.photoURL = user.photoURL;
-      }
-    });
-    console.log(this.userService.currentUser);
+    this.userService.getUserInfo();
   }
 
 }
