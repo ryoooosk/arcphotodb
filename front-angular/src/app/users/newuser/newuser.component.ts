@@ -15,7 +15,7 @@ export class NewuserComponent implements OnInit {
     protected userService: UserService
   ) { }
 
-  protected userInfo: {
+  private sendInfo: {
     displayName: string,
     userText: string | null
   } = {
@@ -28,11 +28,10 @@ export class NewuserComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // NgFormを使うと、Blobで送れなくなってしまう←要検討
-
+  // NgFormを使うと、Blobで送れなくなってしまう
   registerUser(form: NgForm) {
-    this.userInfo = form.value;
-    this.userService.registerUserInfo(this.userInfo);
+    this.sendInfo = form.value;
+    this.userService.registerUserInfo(this.sendInfo);
     this.router.navigateByUrl('/');
   }
 

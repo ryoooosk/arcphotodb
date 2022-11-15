@@ -9,7 +9,23 @@
     <div class="mypage-header-right">
       <div class="user-info">
         <h3>{{ this.userService.currentUser.displayName }}</h3>
-        <a class="sns-url" href="http://instagram.com"><button class="sns-btn">SNS</button></a>
+        <div class="user-info-right">
+          <a
+            *ngIf="this.userService.userInfo.twitterUrl"
+            class="sns-url"
+            href="{{ this.userService.userInfo.twitterUrl }}"
+          >
+            <button class="sns-btn twitter">Twitter</button>
+          </a>
+          <a
+            *ngIf="this.userService.userInfo.instagramUrl"
+            class="sns-url"
+            href="{{ this.userService.userInfo.instagramUrl }}"
+          >
+            <button class="sns-btn instagram">Instagram</button>
+          </a>
+        </div>
+
       </div>
       <div class="user-action">
         <p>投稿数: <span class="bold">100</span> 件</p>

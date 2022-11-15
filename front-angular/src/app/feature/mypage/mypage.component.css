@@ -26,8 +26,6 @@ a {
 
 .mypage-header-left {
   width: 30%;
-  background-color: lightgray;
-  border-radius: 100px;
 }
 
 .user-picture {
@@ -40,12 +38,25 @@ a {
   align-items: center;
 }
 
+.user-info-right {
+  display: flex;
+  gap: 10px;
+}
+
 .sns-btn {
   background-color: #efefef;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
+}
+
+.twitter {
+  background-color: rgb(103, 168, 226);
+}
+
+.instagram {
+  background-color: rgb(239, 118, 74);
 }
 
 .user-action {

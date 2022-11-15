@@ -55,11 +55,11 @@ export class UserService {
 
   public userInfo: {
     userText: any,
-    twiiterUrl: string | null | undefined,
+    twitterUrl: string | null | undefined,
     instagramUrl: string | null | undefined
   } = {
     userText: "",
-    twiiterUrl: "",
+    twitterUrl: "",
     instagramUrl: ""
   };
 
@@ -101,9 +101,6 @@ export class UserService {
       // ログイン状態であれば下記を実行する
       if(user) {
         console.log(user);
-
-        // 先にドキュメントとコレクションを作り、一つずつ入れていく??
-
         this.currentUser.displayName = value.displayName;
 
         // 写真がある場合、AuthenticationとCloud FirestoreにphotoURLを保存
@@ -162,11 +159,72 @@ export class UserService {
           const userInfo = docSnap.data();
           console.log(userInfo);
           this.userInfo.userText = userInfo['userText'];
+          this.userInfo.twitterUrl = userInfo['twitterUrl'];
+          this.userInfo.instagramUrl = userInfo['instagramUrl'];
         } else {
           console.log("No such document!");
         }
       }
     })
+  }
+
+  // registerUserInfoとほぼ同じだから一緒にしてしまおう
+  updateUserInfo(value: {
+    displayName: string | null,
+    userText: string | null | undefined,
+    twitterUrl: string | null | undefined,
+    instagramUrl: string | null | undefined
+  }): any {
+    onAuthStateChanged(this.auth, async (user) => {
+      // ログイン状態であれば下記を実行する
+      if(user) {
+        console.log(user);
+        this.currentUser.displayName = value.displayName;
+
+        // 写真がある場合、AuthenticationとCloud FirestoreにphotoURLを保存
+        if(this.file) {
+          // 参照パスを設定
+          this.storageRef = ref(this.storage, `userphoto/${this.file.name}`);
+
+          await uploadBytes(this.storageRef, this.file, this.metadata)
+            .then((_) => {
+              console.log('Upload Blob File!');
+              // file変数を初期化
+              this.file = null;
+              // Cloud StorageのURLを取得し、保存する
+              getDownloadURL(this.storageRef)
+                .then((downloadURL) => {
+                  console.log('Get DownloadURL!');
+                  this.currentUser.photoURL = downloadURL;
+                  // Authenticationのuserをアップデート←下の非同期処理が先に走ってくれれば不要。
+                  const value = this.currentUser;
+                  updateProfile(this.auth.currentUser, value)
+                    .then((_) => console.log('updateProfile (if File)!'));
+                })
+            })
+        }
+
+        // await同士は同期処理になるものの、uploadBytesのthenの終了前に↓が走り始めてしまう。
+        await updateProfile(this.auth.currentUser, this.currentUser)
+          .then((_) => console.log('updateProfile!'));
+        await setDoc(doc(this.db, "users", user.uid) ,{
+          displayName: this.currentUser.displayName,
+          photoURL: this.currentUser.photoURL,
+          userText: value.userText,
+          twitterUrl: value.twitterUrl,
+          instagramUrl: value.instagramUrl
+        },{merge: true})
+          .then(() => {
+            console.log('addDoc complete!');
+            this.router.navigateByUrl('/mypage');
+          });
+
+      } else {
+        console.log('ログインしていません');
+        this.router.navigateByUrl('/');
+      }
+
+    });
   }
 
 }

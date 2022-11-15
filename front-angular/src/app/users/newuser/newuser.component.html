@@ -11,7 +11,7 @@
         <!-- <input>のname属性 → 名前/値の組の部分としてフォームと一緒に送信される -->
         ユーザー画像: <input class="input-box" name="photoURL" type="file" (change)="previewPhoto($event)">
       </label>
-      <img class="previewphoto" [src]=userService.photoSrc alt="">
+      <img class="previewphoto" [src]=userService.photoSrc>
       <label class="label" for="userText">
         紹介文: <textarea class="input-box" [ngModel] name="userText" cols="30" rows="5"></textarea>
       </label>
