@@ -1,23 +1,33 @@
 <div class="useredit-wrapper">
+  <h2>ユーザー情報編集</h2>
   <div class="useredit-field">
-    <h2>ユーザー情報編集</h2>
-    <form class="useredit-form" #form="ngForm" (ngSubmit)="updateUser(form)">
-      <label for="displayName">
-        ユーザーネーム: <input class="input-box" [ngModel] type="text" name="displayName" required>
+    <div class="useredit-left">
+      <img class="user-picture" src="{{ this.userService.photoSrc }}" alt="">
+      <label class="label" for="photoURL">
+        ユーザー画像: <input class="input-box" name="photoURL" type="file" (change)="previewPhoto($event)">
       </label>
-      <label for="userText">
-        紹介文: <textarea class="input-box" [ngModel] name="userText" cols="30" rows="5"></textarea>
-      </label>
-      <label for="twitterUrl">
-        twitter url: <input ngModel name="twitterUrl" type="text">
-      </label>
-      <label for="instagramUrl">
-        instagram url: <input ngModel name="instagramUrl" type="text">
-      </label>
-      <div class="btn-field">
-        <button class="btn cancel" routerLink="/mypage">キャンセル</button>
-        <button class="btn submit" type="submit">更新する</button>
-      </div>
-    </form>
+    </div>
+    <div class="useredit-right">
+      <form class="useredit-form" #form="ngForm" (ngSubmit)="updateUser(form)">
+        <label for="displayName">
+          ユーザーネーム: <input class="input-box" [ngModel] type="text" name="displayName" required>
+        </label>
+        <label for="userText">
+          紹介文: <textarea class="input-box" [ngModel] name="userText" cols="30" rows="5"></textarea>
+        </label>
+        <label for="twitterUrl">
+          twitter url: <input ngModel name="twitterUrl" type="text">
+        </label>
+        <label for="instagramUrl">
+          instagram url: <input ngModel name="instagramUrl" type="text">
+        </label>
+        <div class="btn-field">
+          <button class="btn cancel" routerLink="/mypage">キャンセル</button>
+          <button class="btn submit" type="submit">更新する</button>
+        </div>
+      </form>
+    </div>
+
   </div>
+
 </div>

@@ -26,6 +26,7 @@ export class UsereditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userService.getUserInfo();
   }
 
   previewPhoto(photo: any) {

@@ -29,7 +29,7 @@ export class UserService {
   // JavaScript FileAPI
   private reader =  new FileReader();
   private file: any;
-  public photoSrc: string = '';
+  public photoSrc: string | null = '';
 
   // Firebase Storage
   private storage = getStorage();
@@ -52,7 +52,6 @@ export class UserService {
 
   // Cloud Firestore
   private db = getFirestore();
-
   public userInfo: {
     userText: any,
     twitterUrl: string | null | undefined,
@@ -150,6 +149,8 @@ export class UserService {
       if(user) {
         this.currentUser.displayName = user.displayName;
         this.currentUser.photoURL = user.photoURL;
+        // ↓usereditでの写真更新用
+        this.photoSrc = user.photoURL;
         console.log(this.currentUser);
 
         const docRef = doc(this.db, "users", user.uid);
