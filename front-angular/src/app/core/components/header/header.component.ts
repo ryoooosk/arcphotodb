@@ -10,21 +10,24 @@ import { UserService } from '../../service/user.service';
 export class HeaderComponent implements OnInit {
 
   constructor(
-    private afAuth: Auth,
+    private auth: Auth,
     protected userService: UserService
   ) { }
 
   protected isLogin: boolean | undefined;
 
   ngOnInit(): void {
-    this.afAuth.onAuthStateChanged((user) => {
+    this.auth.onAuthStateChanged((user) => {
       // 真偽値に変換する
       this.isLogin = !!user;
       if(user) {
-        this.userService.currentUser.displayName = user.displayName;
-        this.userService.currentUser.photoURL = user.photoURL;
+        this.userService.getUserInfo();
       };
     })
+  }
+
+  logout(): void {
+    this.userService.logout();
   }
 
 }

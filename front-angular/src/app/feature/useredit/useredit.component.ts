@@ -14,7 +14,7 @@ export class UsereditComponent implements OnInit {
   ) { }
 
   private sendInfo: {
-    displayName: string | null,
+    displayName: string,
     userText: string | null | undefined,
     twitterUrl: string | null | undefined,
     instagramUrl: string | null | undefined

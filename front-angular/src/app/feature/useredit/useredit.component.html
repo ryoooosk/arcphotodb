@@ -10,16 +10,22 @@
     <div class="useredit-right">
       <form class="useredit-form" #form="ngForm" (ngSubmit)="updateUser(form)">
         <label for="displayName">
-          ユーザーネーム: <input class="input-box" [ngModel] type="text" name="displayName" required>
+          ユーザーネーム:
+          <input class="input-box" ngModel type="text" name="displayName" value="{{ userService.currentUser.displayName }}" required>
         </label>
         <label for="userText">
-          紹介文: <textarea class="input-box" [ngModel] name="userText" cols="30" rows="5"></textarea>
+          紹介文:
+          <textarea class="input-box" ngModel name="userText" cols="30" rows="5">
+            {{ userService.userInfo.userText }}
+          </textarea>
         </label>
         <label for="twitterUrl">
-          twitter url: <input ngModel name="twitterUrl" type="text">
+          twitter url:
+          <input ngModel name="twitterUrl" type="text" value="{{ userService.userInfo.twitterUrl }}">
         </label>
         <label for="instagramUrl">
-          instagram url: <input ngModel name="instagramUrl" type="text">
+          instagram url:
+          <input ngModel name="instagramUrl" type="text" value="{{ userService.userInfo.instagramUrl }}">
         </label>
         <div class="btn-field">
           <button class="btn cancel" routerLink="/mypage">キャンセル</button>

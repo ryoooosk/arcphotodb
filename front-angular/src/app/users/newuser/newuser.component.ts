@@ -32,7 +32,6 @@ export class NewuserComponent implements OnInit {
   registerUser(form: NgForm) {
     this.sendInfo = form.value;
     this.userService.registerUserInfo(this.sendInfo);
-    this.router.navigateByUrl('/');
   }
 
   previewPhoto(photo: any) {

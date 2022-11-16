@@ -7,11 +7,13 @@ import { DashboardComponent } from './feature/dashboard/dashboard.component';
 import { MypageComponent } from './feature/mypage/mypage.component';
 import { NewuserComponent } from './users/newuser/newuser.component';
 import { UsereditComponent } from './feature/useredit/useredit.component';
+import { LoginComponent } from './users/login/login.component';
 
 
 const Route = [
   { path: '', component: DashboardComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'detail', component: DetailComponent },
   { path: 'mypage', component: MypageComponent },
   { path: 'newuser', component: NewuserComponent },

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 // Angular Fire
-import { Auth, signInWithPopup, getAuth, updateProfile, onAuthStateChanged } from '@angular/fire/auth';
+import { Auth, signInWithPopup, getAuth, updateProfile, onAuthStateChanged, signOut, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { createUserWithEmailAndPassword, GoogleAuthProvider } from '@firebase/auth';
 import { getDownloadURL, getStorage, ref, uploadBytes } from '@angular/fire/storage';
 import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
@@ -39,7 +39,7 @@ export class UserService {
   private storageRef: any;
 
   // Firebase Auth
-  private auth:any = getAuth();
+  private auth: any = getAuth();
   public currentUser: {
     displayName: string | null,
     photoURL: string | null
@@ -87,6 +87,23 @@ export class UserService {
       });
   }
 
+  logout(): void {
+    signOut(this.auth)
+      .then(() => {
+        this.currentUser = {displayName: null, photoURL: null};
+        this.router.navigateByUrl('/login');
+      }).catch(() => {
+        console.log('missed logout')
+      });
+  }
+
+  login(email: string, password: string): Promise<boolean | void> | void {
+    // catchメソッドが使用された場合返り値がないため voidも指定
+      return signInWithEmailAndPassword(this.auth, email, password)
+        .then(() => this.router.navigateByUrl('/'))
+        .catch(error => console.error(error));
+    }
+
   previewUserPhoto(photo: any) {
     this.file = photo.target.files[0];
     this.reader.readAsDataURL(this.file);
@@ -133,7 +150,10 @@ export class UserService {
           photoURL: this.currentUser.photoURL,
           userText: value.userText,
         },{merge: true})
-          .then(() => console.log('addDoc complete!'));
+          .then(() => {
+            console.log('addDoc complete!');
+            this.router.navigateByUrl('/');
+          });
 
       } else {
         console.log('ログインしていません');
