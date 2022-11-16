@@ -14,7 +14,6 @@ export class MypageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userService.getUserInfo();
   }
 
 }

@@ -237,8 +237,9 @@ export class UserService {
         },{merge: true})
           .then(() => {
             console.log('addDoc complete!');
-            this.router.navigateByUrl('/mypage');
           });
+        await this.router.navigateByUrl('/mypage')
+          .then(() => console.log('userupdate all complete!'));
 
       } else {
         console.log('ログインしていません');
