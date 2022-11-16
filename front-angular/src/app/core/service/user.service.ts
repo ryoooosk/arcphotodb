@@ -70,9 +70,9 @@ export class UserService {
       .then((userCredential) => {
         const { user } = userCredential;
         const createUser = { uid: user.uid, email: user.email };
-        this.http.post('http://example/api/post', createUser, this.httpOption)
-          .subscribe(_ => console.log('usercreate success!'));
-      })
+        // this.http.post('http://example/api/post', createUser, this.httpOption)
+        //   .subscribe(_ => console.log('usercreate success!'));
+      });
   }
 
   createUserGoogle(): any {
@@ -97,12 +97,19 @@ export class UserService {
       });
   }
 
-  login(email: string, password: string): Promise<boolean | void> | void {
+  login(email: string, password: string): Promise<boolean | void> {
     // catchメソッドが使用された場合返り値がないため voidも指定
-      return signInWithEmailAndPassword(this.auth, email, password)
-        .then(() => this.router.navigateByUrl('/'))
-        .catch(error => console.error(error));
-    }
+    return signInWithEmailAndPassword(this.auth, email, password)
+      .then(() => {
+        console.log('success login!');
+        this.router.navigateByUrl('/');
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        alert('メールアドレスとパスワードが正しくありません。');
+      });
+  }
 
   previewUserPhoto(photo: any) {
     this.file = photo.target.files[0];

@@ -23,10 +23,11 @@ export class SignupComponent implements OnInit {
   signupEmail(form: NgForm): void {
     this.user = form.value;
     alert(`下記の内容で登録します。\nEmail: ${this.user.email}\nPassword: ${this.user.password}`);
-    this.userService.createUserEmail(this.user.email, this.user.password);
-      // .then((_) => this.router.navigateByUrl('/newuser'));
-
-    this.router.navigateByUrl('/newuser');
+    this.userService.createUserEmail(this.user.email, this.user.password)
+      .then(() => {
+        console.log('Complete SignUp!');
+        this.router.navigateByUrl('/newuser');
+      });
   }
 
   signupGoogle(): void {
