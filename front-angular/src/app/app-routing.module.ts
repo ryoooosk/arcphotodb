@@ -8,15 +8,17 @@ import { MypageComponent } from './feature/mypage/mypage.component';
 import { NewuserComponent } from './users/newuser/newuser.component';
 import { UsereditComponent } from './feature/useredit/useredit.component';
 import { LoginComponent } from './users/login/login.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { UserGuard } from './core/guards/user.guard';
 
 
 const Route = [
   { path: '', component: DashboardComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
+  { path: 'newuser', component: NewuserComponent, canActivate: [AuthGuard] },
   { path: 'detail', component: DetailComponent },
-  { path: 'mypage', component: MypageComponent },
-  { path: 'newuser', component: NewuserComponent },
+  { path: 'mypage', component: MypageComponent, canActivate: [UserGuard] },
   { path: 'useredit', component: UsereditComponent },
 ];
 

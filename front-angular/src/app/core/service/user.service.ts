@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 // Angular Fire
-import { Auth, signInWithPopup, getAuth, updateProfile, onAuthStateChanged, signOut, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, signInWithPopup, getAuth, updateProfile, onAuthStateChanged } from '@angular/fire/auth';
 import { createUserWithEmailAndPassword, GoogleAuthProvider } from '@firebase/auth';
 import { getDownloadURL, getStorage, ref, uploadBytes } from '@angular/fire/storage';
 import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
@@ -78,8 +78,7 @@ export class UserService {
 
   createUserGoogle(): any {
     // getAuth()でAuthenticationを初期化。
-    const auth = getAuth();
-    signInWithPopup(auth, this.provider)
+    signInWithPopup(this.auth, this.provider)
       .then((result) => {
         const credential: any = GoogleAuthProvider.credentialFromResult(result);
         const token: any = credential.accessToken;
