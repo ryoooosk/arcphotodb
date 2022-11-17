@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 // Angular Fire
 import { Auth, signInWithPopup, getAuth, updateProfile, onAuthStateChanged, signOut, signInWithEmailAndPassword } from '@angular/fire/auth';
@@ -16,7 +16,6 @@ export class UserService {
 
   constructor(
     private afAuth: Auth,
-    private http: HttpClient,
     private router: Router,
   ) { }
 
@@ -53,10 +52,12 @@ export class UserService {
   // Cloud Firestore
   private db = getFirestore();
   public userInfo: {
-    userText: any,
+    displayName: string,
+    userText: string | undefined,
     twitterUrl: string | null | undefined,
     instagramUrl: string | null | undefined
   } = {
+    displayName: "",
     userText: "",
     twitterUrl: "",
     instagramUrl: ""
@@ -84,30 +85,6 @@ export class UserService {
         const token: any = credential.accessToken;
         const user = result.user;
         this.router.navigateByUrl('/newuser')
-      });
-  }
-
-  logout(): void {
-    signOut(this.auth)
-      .then(() => {
-        this.currentUser = {displayName: null, photoURL: null};
-        this.router.navigateByUrl('/login');
-      }).catch(() => {
-        console.log('missed logout')
-      });
-  }
-
-  login(email: string, password: string): Promise<boolean | void> {
-    // catchメソッドが使用された場合返り値がないため voidも指定
-    return signInWithEmailAndPassword(this.auth, email, password)
-      .then(() => {
-        console.log('success login!');
-        this.router.navigateByUrl('/');
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        console.log(errorMessage);
-        alert('メールアドレスとパスワードが正しくありません。');
       });
   }
 
@@ -178,7 +155,7 @@ export class UserService {
         this.currentUser.photoURL = user.photoURL;
         // ↓usereditでの写真更新用
         this.photoSrc = user.photoURL;
-        console.log(this.currentUser);
+        // console.log(this.currentUser);
 
         const docRef = doc(this.db, "users", user.uid);
         const docSnap = await getDoc(docRef);
@@ -186,6 +163,7 @@ export class UserService {
         if(docSnap.exists()) {
           const userInfo = docSnap.data();
           console.log(userInfo);
+          this.userInfo.displayName = userInfo['displayName'];
           this.userInfo.userText = userInfo['userText'];
           this.userInfo.twitterUrl = userInfo['twitterUrl'];
           this.userInfo.instagramUrl = userInfo['instagramUrl'];

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { UserService } from '../../service/user.service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private auth: Auth,
-    protected userService: UserService
+    protected userService: UserService,
+    protected authService: AuthService
   ) { }
 
   protected isLogin: boolean | undefined;
@@ -27,7 +29,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
-    this.userService.logout();
+    this.authService.logout();
   }
 
 }

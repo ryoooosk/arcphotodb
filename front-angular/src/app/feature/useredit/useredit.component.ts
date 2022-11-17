@@ -13,7 +13,7 @@ export class UsereditComponent implements OnInit {
     protected userService: UserService
   ) { }
 
-  private sendInfo: {
+  protected userInfo: {
     displayName: string,
     userText: string | null | undefined,
     twitterUrl: string | null | undefined,
@@ -26,6 +26,7 @@ export class UsereditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userInfo = this.userService.userInfo;
   }
 
   previewPhoto(photo: any) {
@@ -33,9 +34,8 @@ export class UsereditComponent implements OnInit {
   }
 
   updateUser(form: NgForm) {
-    this.sendInfo = form.value;
-    console.log(this.sendInfo);
-    this.userService.updateUserInfo(this.sendInfo);
+    console.log(this.userInfo);
+    this.userService.updateUserInfo(this.userInfo);
   }
 
 
