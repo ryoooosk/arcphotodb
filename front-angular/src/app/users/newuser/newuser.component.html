@@ -19,7 +19,7 @@
       </label>
       <img class="previewphoto" [src]=userService.photoSrc>
     </div>
-    <button class="submit-btn" type="submit">ユーザー情報を登録する</button>
+    <button class="submit-btn" type="submit" [disabled]="name.invalid">ユーザー情報を登録する</button>
   </form>
 
 </div>

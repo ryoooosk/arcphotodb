@@ -1,12 +1,14 @@
 <div class="useredit-wrapper">
   <h2>ユーザー情報編集</h2>
   <div class="useredit-field">
+
     <div class="useredit-left">
       <img class="user-picture" src="{{ this.userService.photoSrc }}" alt="">
       <label class="label" for="photoURL">
         ユーザー画像: <input class="input-box" name="photoURL" type="file" (change)="previewPhoto($event)">
       </label>
     </div>
+
     <div class="useredit-right">
       <!-- ngModelがないとngSubmitでform送信されない。ngModelがあるとhtmlのvalue属性やtextareaの初期値は反映されない -->
       <form class="useredit-form" #form="ngForm" (ngSubmit)="updateUser(form)">
@@ -15,7 +17,10 @@
           <!-- ngModel 単体だと、value属性がリロードしないと走らない→リロードすると表示こそされるが送信されない -->
           <input class="input-box" [(ngModel)]="userInfo.displayName" type="text" name="displayName" #name="ngModel" value="{{ userService.currentUser.displayName }}" required>
         </label>
-        <p *ngIf="name.errors?.['required']" class="error">Name is required.</p>
+        <!-- ↓のngIfの一文があると、初期値でバリデーションが反応しなくなる -->
+        <div *ngIf="name.invalid && (name.dirty || name.touched)">
+          <span *ngIf="name.errors?.['required']" class="error">Name is required.</span>
+        </div>
         <label for="userText">
           自己紹介:
           <textarea [(ngModel)]="userInfo.userText" class="input-box" name="userText" cols="30" rows="5">
@@ -32,11 +37,11 @@
         </label>
         <div class="btn-field">
           <button class="btn cancel" routerLink="/mypage">キャンセル</button>
-          <button class="btn submit" type="submit">更新する</button>
+          <!-- [disabled]="name.invalid"でdisplayName未入力だと更新ボタンが押せない仕様に -->
+          <button class="btn submit" type="submit" [disabled]="name.invalid">更新する</button>
         </div>
       </form>
     </div>
 
   </div>
-
 </div>
