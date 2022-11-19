@@ -4,17 +4,20 @@
   <form class="form" #form="ngForm" (ngSubmit)="registerUser(form)">
     <div class="form-group">
       <label class="username label" for="displayName">
-        ユーザーネーム: <input class="input-box" [ngModel] type="text" name="displayName" required>
+        <!-- #name="ngModel" は何を働いている -->
+        ユーザーネーム: <input class="input-box" [(ngModel)]="sendInfo.displayName" type="text" name="displayName" #name="ngModel" required>
       </label>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)">
+        <div *ngIf="name.errors?.['required']">
+          displayName is required.
+        </div>
+      </div>
       <label class="label" for="photoURL">
         <!-- eventを引数に指定すると、様々なイベント情報が格納されたイベントオブジェクトが渡る -->
         <!-- <input>のname属性 → 名前/値の組の部分としてフォームと一緒に送信される -->
         ユーザー画像: <input class="input-box" name="photoURL" type="file" (change)="previewPhoto($event)">
       </label>
       <img class="previewphoto" [src]=userService.photoSrc>
-      <label class="label" for="userText">
-        紹介文: <textarea class="input-box" [ngModel] name="userText" cols="30" rows="5"></textarea>
-      </label>
     </div>
     <button class="submit-btn" type="submit">ユーザー情報を登録する</button>
   </form>

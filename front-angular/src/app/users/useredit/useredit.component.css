@@ -23,6 +23,12 @@
   margin-left: 40px;
 }
 
+.error {
+  font-size: 16px;
+  color: red;
+  margin: 0;
+}
+
 .previewphoto {
   width: 200px;
 }

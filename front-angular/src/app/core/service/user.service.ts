@@ -95,7 +95,7 @@ export class UserService {
     });
   }
 
-  registerUserInfo(value:{displayName: string, userText?: string | null}): any {
+  registerUserInfo(value:{displayName: string}): any {
     onAuthStateChanged(this.auth, async (user) => {
       // ログイン状態であれば下記を実行する
       if(user) {
@@ -131,7 +131,6 @@ export class UserService {
         await setDoc(doc(this.db, "users", user.uid) ,{
           displayName: this.currentUser.displayName,
           photoURL: this.currentUser.photoURL,
-          userText: value.userText,
         },{merge: true})
           .then(() => {
             console.log('addDoc complete!');

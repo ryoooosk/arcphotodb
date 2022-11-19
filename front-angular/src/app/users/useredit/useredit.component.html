@@ -13,8 +13,9 @@
         <label for="displayName">
           ユーザーネーム:
           <!-- ngModel 単体だと、value属性がリロードしないと走らない→リロードすると表示こそされるが送信されない -->
-          <input class="input-box" [(ngModel)]="userInfo.displayName" type="text" name="displayName" value="{{ userService.currentUser.displayName }}" required>
+          <input class="input-box" [(ngModel)]="userInfo.displayName" type="text" name="displayName" #name="ngModel" value="{{ userService.currentUser.displayName }}" required>
         </label>
+        <p *ngIf="name.errors?.['required']" class="error">Name is required.</p>
         <label for="userText">
           自己紹介:
           <textarea [(ngModel)]="userInfo.userText" class="input-box" name="userText" cols="30" rows="5">

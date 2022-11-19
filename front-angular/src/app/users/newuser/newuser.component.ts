@@ -11,16 +11,13 @@ import { UserService } from '../../core/service/user.service';
 export class NewuserComponent implements OnInit {
 
   constructor(
-    private router: Router,
     protected userService: UserService
   ) { }
 
-  private sendInfo: {
+  protected sendInfo: {
     displayName: string,
-    userText: string | null
   } = {
     displayName: '',
-    userText: ''
   };
 
   reader =  new FileReader();
