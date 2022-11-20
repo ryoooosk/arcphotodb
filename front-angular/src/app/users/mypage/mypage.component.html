@@ -7,37 +7,42 @@
     </div>
 
     <div class="mypage-header-right">
-      <div class="user-info">
-        <h3>{{ this.userService.currentUser.displayName }}</h3>
-        <div class="user-info-right">
-          <a
-            *ngIf="this.userService.userInfo.twitterUrl"
-            class="sns-url"
-            href="{{ this.userService.userInfo.twitterUrl }}"
-          >
-            <button class="sns-btn twitter">Twitter</button>
-          </a>
-          <a
-            *ngIf="this.userService.userInfo.instagramUrl"
-            class="sns-url"
-            href="{{ this.userService.userInfo.instagramUrl }}"
-          >
-            <button class="sns-btn instagram">Instagram</button>
-          </a>
-        </div>
 
+      <div class="user-info">
+
+        <div class="userinfo-top">
+          <h3>{{ this.userService.currentUser.displayName }}</h3>
+          <div class="profileedit-container">
+            <!-- twitterUrl -->
+            <a
+              *ngIf="this.userService.userInfo.twitterUrl"
+              class="sns-url"
+              href="{{ this.userService.userInfo.twitterUrl }}"
+            >
+              <button class="sns-btn twitter">Twitter</button>
+            </a>
+            <!-- instagramUrl -->
+            <a
+              *ngIf="this.userService.userInfo.instagramUrl"
+              class="sns-url"
+              href="{{ this.userService.userInfo.instagramUrl }}"
+            >
+              <button class="sns-btn instagram">Instagram</button>
+            </a>
+            <button class="edit-btn" routerLink="/useredit">プロフィールを編集</button>
+          </div>
+        </div>
+        <p class="profile">{{ this.userService.userInfo.userText }}</p>
       </div>
+
       <div class="user-action">
-        <p>投稿数: <span class="bold">100</span> 件</p>
+        <p>投稿数: <span class="bold">xxx</span> 件</p>
         <!-- いいねの絵文字 -->
-        <a>いいねした数: <span class="bold">1000</span> 回</a>
+        <p>いいねした数: <span class="bold">xxxx</span> 回</p>
         <!-- 保存の絵文字 -->
-        <a>保存数: <span class="bold">10</span> 個</a>
+        <p>保存数: <span class="bold">xx</span> 個</p>
       </div>
-      <p class="profile">{{ this.userService.userInfo.userText }}</p>
-      <div class="edit-field">
-        <button class="edit-btn" routerLink="/useredit">プロフィールを編集する</button>
-      </div>
+
     </div>
 
   </div>

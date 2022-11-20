@@ -17,11 +17,7 @@ a {
   width: 90%;
   margin: 0 auto;
   padding-bottom: 30px;
-  border-bottom: 1px solid #333333;
-}
-
-.profile {
-  padding: 0 5px;
+  border-bottom: 0.5px solid lightslategray;
 }
 
 .mypage-header-left {
@@ -32,22 +28,28 @@ a {
   width: 100%;
 }
 
-.user-info {
+.userinfo-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.user-info-right {
-  display: flex;
-  gap: 10px;
+.edit-btn {
+  margin-left: 10px;
+  padding: 5px 8px;
+  background-color: white;
+  border: 1px solid #333333;
+  border-radius: 5px;
+  letter-spacing: 0.05rem;
+  cursor: pointer;
 }
 
 .sns-btn {
+  margin-left: 5px;
   background-color: #efefef;
   border: none;
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 5px 6px;
   cursor: pointer;
 }
 
@@ -65,13 +67,4 @@ a {
   align-items: center;
 }
 
-.edit-btn {
-  width: 60%;
-  height: 35px;
-  background-color: #efefef;
-  border: none;
-  border-radius: 5px;
-  letter-spacing: 0.05rem;
-  cursor: pointer;
-}
 
