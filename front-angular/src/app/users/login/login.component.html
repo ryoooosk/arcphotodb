@@ -1,27 +1,25 @@
 <div class="login-wrapper">
-  <h3>ログイン</h3>
+  <h3>ログインフォーム</h3>
 
   <!-- テンプレート駆動フォーム -->
   <!-- #form=ngForm テンプレート参照変数を使ってngFormディレクティブを代入 -->
   <!-- 通常テンプレート変数の右辺を指定すると特定のディレクティブやコンポーネントを参照する -->
   <form class="email-form" #form=ngForm (ngSubmit)="login(form)">
-    <h4>メールアドレスでログイン</h4>
-    <div class="signup-form">
-      <div class="input-title">
-        <span class="email">Email </span>
-        <span class="password">Password </span>
-      </div>
-      <div class="input-form">
-        <input [(ngModel)]="user.email" name="email" class="input-box" type="email">
-        <input [(ngModel)]="user.password" name="password" class="input-box" type="password">
-      </div>
-    </div>
-    <button class="submit-btn" type="submit">ログイン</button>
+    <mat-form-field class="login-form" appearance="fill">
+      <mat-label class="input-form">Email</mat-label>
+        <input matInput [(ngModel)]="user.email" #email="ngModel" name="email" class="input-box" type="email" email>
+        <mat-error *ngIf="email.errors?.['email']">正しいメールアドレスを入力して下さい</mat-error>
+    </mat-form-field>
+    <mat-form-field class="login-form" appearance="fill">
+      <mat-label class="input-form">Password</mat-label>
+        <input matInput [(ngModel)]="user.password" name="password" class="input-box" type="password">
+    </mat-form-field>
+    <button mat-stroked-button class="submit-btn btn" type="submit">ログイン</button>
   </form>
 
   <!-- <label for="signup-google">
     <button class="google-btn" (click)="loginGoogle()">Googleアカウントでログインする</button>
   </label> -->
 
-  <a routerLink="/signup">新規登録する</a>
+  <a mat-stroked-button class="login-btn btn" routerLink="/signup">新規登録する</a>
 </div>

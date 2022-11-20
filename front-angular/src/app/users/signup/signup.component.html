@@ -1,5 +1,5 @@
 <div class="signup-wrapper">
-  <h3>ユーザー登録</h3>
+  <h3>ユーザー登録フォーム</h3>
 
   <!-- テンプレート駆動フォーム -->
   <!-- #form=ngForm テンプレート参照変数を使ってngFormディレクティブを代入 -->
@@ -7,7 +7,8 @@
   <form class="email-form" #form=ngForm (ngSubmit)="signupEmail(form)">
     <mat-form-field class="signup-form" appearance="fill">
       <mat-label for="email">Email</mat-label>
-        <input matInput [ngModel]="user.email" name="email" class="input-box" type="email">
+        <input matInput [ngModel]="user.email" #email="ngModel" name="email" class="input-box" type="email" email>
+      <mat-error *ngIf="email.errors?.['email']">正しいメールアドレスを入力して下さい</mat-error>
     </mat-form-field>
     <mat-form-field class="signup-form" appearance="fill">
       <mat-label for="password">Password</mat-label>

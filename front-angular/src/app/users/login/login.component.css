@@ -1,0 +1,30 @@
+h3 {
+  font-size: 21px;
+  margin: 30px 0 0 0;
+}
+
+.login-wrapper {
+  width: 100%;
+  margin: 0 auto;
+  align-items: center;
+  max-width: 700px;
+}
+
+.login-form {
+  width: 70%;
+  margin-bottom: 10px;
+}
+
+.email-form {
+  margin-top: 35px;
+  margin-bottom: 50px;
+}
+
+.submit-btn {
+  margin-top: 25px;
+}
+
+.btn {
+  width: 70%;
+  border-radius: 10px;
+}
