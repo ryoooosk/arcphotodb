@@ -13,7 +13,8 @@
 }
 
 .useredit-right {
-  width: 40%;
+  width: 70%;
+  margin-right: 35px;
 }
 
 .useredit-form {
@@ -41,6 +42,7 @@
 }
 
 .input-box {
+  font-size: 16px;
   width: 100%;
 }
 
@@ -51,18 +53,7 @@
 
 .btn {
   margin-top: 30px;
-  border: none;
   border-radius: 4px;
-  width: 100px;
-  padding: 5px 10px;
   letter-spacing: 0.05em;
   cursor: pointer;
-}
-
-.cancel {
-  font-weight: 500;
-}
-
-.submit {
-  font-weight: 600;
 }
