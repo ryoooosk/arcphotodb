@@ -2,6 +2,11 @@ a {
   cursor: pointer;
 }
 
+h3 {
+  margin: 0;
+  font-size: 21px;
+}
+
 .bold {
   font-weight: bold;
 }
@@ -13,7 +18,7 @@ a {
 .mypage-header {
   display: flex;
   justify-content: space-between;
-  gap: 30px;
+  gap: 40px;
   width: 90%;
   margin: 0 auto;
   padding-bottom: 30px;
@@ -24,6 +29,10 @@ a {
   width: 30%;
 }
 
+.mypage-header-right {
+  width: 70%;
+}
+
 .user-picture {
   width: 100%;
 }
@@ -32,6 +41,11 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 30px;
+}
+
+.profile {
+  margin-bottom: 30px;
 }
 
 .edit-btn {
@@ -49,7 +63,7 @@ a {
   background-color: #efefef;
   border: none;
   border-radius: 5px;
-  padding: 5px 6px;
+  padding: 8px 10px;
   cursor: pointer;
 }
 

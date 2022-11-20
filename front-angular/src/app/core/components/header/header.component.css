@@ -9,9 +9,9 @@ header {
   min-width: 650px;
 }
 
-a {
-  color: #333333;
-  text-decoration: none;
+.title-name {
+  margin: 0;
+  font-size: 28px;
 }
 
 .header-right {

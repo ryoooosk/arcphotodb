@@ -13,36 +13,37 @@
       <!-- ngModelがないとngSubmitでform送信されない。ngModelがあるとhtmlのvalue属性やtextareaの初期値は反映されない -->
       <form class="useredit-form" #form="ngForm" (ngSubmit)="updateUser(form)">
 
-        <mat-form-field appearance="fill">
-          <mat-label for="displayName">DisplayName:</mat-label>
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label for="displayName">DisplayName</mat-label>
           <!-- ngModel 単体だと、value属性がリロードしないと走らない→リロードすると表示こそされるが送信されない -->
-          <input matInput class="input-box" [(ngModel)]="userInfo.displayName" type="text" name="displayName" #name="ngModel" value="{{ userService.currentUser.displayName }}">
-
-          <!-- ↓のngIfの一文があると、初期値でバリデーションが反応しなくなる -->
-          <!-- <div *ngIf="name.invalid && (name.dirty || name.touched)">
-            <span *ngIf="name.errors?.['required']" class="error">Name is required.</span>
-          </div> -->
+          <input matInput class="input-box" [(ngModel)]="userInfo.displayName" type="text" name="displayName" #name="ngModel" value="{{ userService.currentUser.displayName }}" required>
+          <!-- ↓のngIfの一文があると、初期値でバリデーションが反応しなくなる
+          <div *ngIf="name.invalid && (name.dirty || name.touched)"> -->
+            <mat-error *ngIf="name.errors?.['required']">
+              DisplayNameは必須です
+            </mat-error>
+          <!-- </div> -->
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label for="userText">Bio:</mat-label>
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label for="userText">Bio</mat-label>
           <textarea matInput [(ngModel)]="userInfo.userText" class="input-box" name="userText" cols="30" rows="5">
             {{ userService.userInfo.userText }}
           </textarea>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label for="twitterUrl">twitter url:</mat-label>
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label for="twitterUrl">twitter url</mat-label>
           <input matInput [(ngModel)]="userInfo.twitterUrl" name="twitterUrl" type="text" value="{{ userService.userInfo.twitterUrl }}">
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label for="instagramUrl">instagram url:</mat-label>
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label for="instagramUrl">instagram url</mat-label>
           <input matInput [(ngModel)]="userInfo.instagramUrl" name="instagramUrl" type="text" value="{{ userService.userInfo.instagramUrl }}">
         </mat-form-field>
 
         <div class="btn-field">
-          <button class="btn cancel" routerLink="/mypage">キャンセル</button>
+          <a mat-raised-button class="btn cancel" routerLink="/mypage">キャンセル</a>
           <!-- [disabled]="name.invalid"でdisplayName未入力だと更新ボタンが押せない仕様に -->
           <button mat-raised-button color="primary" class="btn submit" type="submit" [disabled]="name.invalid">更新する</button>
         </div>
