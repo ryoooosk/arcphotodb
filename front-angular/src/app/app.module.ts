@@ -20,7 +20,10 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { LoginComponent } from './users/login/login.component';
-import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+// AngularMaterial
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
