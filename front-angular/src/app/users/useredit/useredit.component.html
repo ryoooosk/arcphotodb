@@ -3,7 +3,7 @@
   <div class="useredit-field">
 
     <div class="useredit-left">
-      <img class="user-picture" src="{{ this.userService.photoSrc }}" alt="">
+      <div class="userpicture-field"><img class="userpicture" src="{{ this.userService.photoSrc }}" alt=""></div>
       <label class="label" for="photoURL">
         Change Userphoto: <input name="photoURL" type="file" (change)="previewPhoto($event)">
       </label>

@@ -12,6 +12,29 @@
   width: 30%;
 }
 
+.userpicture-field {
+  position: relative;
+}
+
+.userpicture-field::before {
+  /* padding-top=100でアスペクト比をコントロールできる */
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.userpicture {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  object-fit: cover;
+}
+
 .useredit-right {
   width: 70%;
   margin-right: 35px;
@@ -35,10 +58,6 @@
 
 .previewphoto {
   width: 200px;
-}
-
-.user-picture {
-  width: 100%;
 }
 
 .input-box {
