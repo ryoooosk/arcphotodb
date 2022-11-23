@@ -28,6 +28,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     FormsModule,
     HttpClientModule,
     BrowserModule,
+    HeaderComponent,
+    CategoryComponent,
     NotFoundComponent
   ]
 })
