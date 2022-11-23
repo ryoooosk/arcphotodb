@@ -5,8 +5,8 @@ import { UsereditComponent } from './components/useredit/useredit.component';
 import { UserGuard } from '../core/guards/user.guard';
 
 const routes: Routes = [
-  // { path: 'mypage', component: MypageComponent, canActivate: [UserGuard] },
-  // { path: 'useredit', component: UsereditComponent },
+  { path: '', component: MypageComponent },
+  { path: 'useredit', component: UsereditComponent },
 ];
 
 @NgModule({

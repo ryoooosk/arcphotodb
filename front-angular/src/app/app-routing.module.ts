@@ -4,9 +4,7 @@ import { DetailComponent } from './feature/components/detail/detail.component';
 import { SignupComponent } from './users/components/signup/signup.component';
 import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './feature/components/dashboard/dashboard.component';
-import { MypageComponent } from './user/components/mypage/mypage.component';
 import { NewuserComponent } from './users/components/newuser/newuser.component';
-import { UsereditComponent } from './user/components/useredit/useredit.component';
 import { LoginComponent } from './users/components/login/login.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { UserGuard } from './core/guards/user.guard';
@@ -19,8 +17,7 @@ const Route = [
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   { path: 'newuser', component: NewuserComponent, canActivate: [AuthGuard] },
   { path: 'detail', component: DetailComponent },
-  { path: 'mypage', component: MypageComponent, canActivate: [UserGuard] },
-  { path: 'useredit', component: UsereditComponent },
+  { path: 'mypage', loadChildren: () => import('./user/user.module').then(m => m.UserModule), canActivate: [UserGuard] },
   { path: '**', component: NotFoundComponent}
 ];
 

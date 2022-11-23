@@ -9,6 +9,8 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { UserModule } from './user/user.module';
 import { UsersModule } from './users/users.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,9 @@ import { UsersModule } from './users/users.module';
     DetailComponent,
   ],
   imports: [
+    // BrowserModule(~)はapp.moduleで一度だけのloadとしないとエラー出る
+    BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,
     SharedModule,

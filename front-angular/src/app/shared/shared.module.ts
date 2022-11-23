@@ -16,7 +16,6 @@ import { MaterialModule } from './modules/material.module';
     CommonModule,
     FormsModule,
     HttpClientModule,
-    BrowserModule,
     RouterModule,
     FireModule,
     MaterialModule
@@ -24,7 +23,6 @@ import { MaterialModule } from './modules/material.module';
   exports: [
     FormsModule,
     HttpClientModule,
-    BrowserModule,
     RouterModule,
     FireModule,
     MaterialModule
