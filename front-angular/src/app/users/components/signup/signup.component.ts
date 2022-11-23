@@ -26,7 +26,7 @@ export class SignupComponent implements OnInit {
     this.userService.createUserEmail(this.user.email, this.user.password)
       .then(() => {
         console.log('Complete SignUp!');
-        this.router.navigateByUrl('/newuser');
+        this.router.navigateByUrl('/signup/newuser');
       });
   }
 
