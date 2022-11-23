@@ -10,6 +10,7 @@ import { UsereditComponent } from './users/useredit/useredit.component';
 import { LoginComponent } from './users/login/login.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { UserGuard } from './core/guards/user.guard';
+import { NotFoundComponent } from './core/components/not-found/not-found.component';
 
 
 const Route = [
@@ -20,6 +21,7 @@ const Route = [
   { path: 'detail', component: DetailComponent },
   { path: 'mypage', component: MypageComponent, canActivate: [UserGuard] },
   { path: 'useredit', component: UsereditComponent },
+  { path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({
