@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 // Components
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './core/components/header/header.component';
-import { CategoryComponent } from './core/components/category/category.component';
 import { DashboardComponent } from './feature/dashboard/dashboard.component';
 import { DetailComponent } from './feature/detail/detail.component';
 import { SignupComponent } from './users/signup/signup.component';
@@ -19,8 +17,6 @@ import { CoreModule } from './core/core.module';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    CategoryComponent,
     DashboardComponent,
     DetailComponent,
     SignupComponent,
