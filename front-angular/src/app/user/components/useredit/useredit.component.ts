@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../service/user.service';
 import { NgForm } from '@angular/forms';
+import { UserService } from '../../../shared/service/user.service';
 
 @Component({
   selector: 'app-useredit',

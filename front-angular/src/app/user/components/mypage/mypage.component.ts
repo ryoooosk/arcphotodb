@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../service/user.service';
+import { UserService } from '../../../shared/service/user.service';
+
 
 @Component({
   selector: 'app-mypage',
@@ -9,7 +10,7 @@ import { UserService } from '../../service/user.service';
 export class MypageComponent implements OnInit {
 
   constructor(
-    protected userService: UserService,
+    protected userService: UserService
   ) { }
 
   ngOnInit(): void {
