@@ -10,9 +10,10 @@ import { NewuserComponent } from './users/components/newuser/newuser.component';
 import { UsereditComponent } from './users/components/useredit/useredit.component';
 // Original Module
 import { AppRoutingModule } from './app-routing.module';
-import { MaterialModule } from './shared/material.module';
-import { FireModule } from './shared/fire.module';
+import { MaterialModule } from './shared/modules/material.module';
+import { FireModule } from './shared/modules/fire.module';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -27,9 +28,8 @@ import { CoreModule } from './core/core.module';
   ],
   imports: [
     AppRoutingModule,
-    MaterialModule,
-    FireModule,
-    CoreModule
+    CoreModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

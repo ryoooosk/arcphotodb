@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 // Angular Fire
 import { getAuth, signOut, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { UserService } from './user.service';
+import { UserService } from '../../users/service/user.service';
 
 @Injectable({
   providedIn: 'root'

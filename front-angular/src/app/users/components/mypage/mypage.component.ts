@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../core/service/user.service';
-import { onAuthStateChanged, Auth } from '@angular/fire/auth';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-mypage',

@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// Angular Module
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-
+// Components
 import { HeaderComponent } from './components/header/header.component';
 import { CategoryComponent } from './components/category/category.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-
+import { SharedModule } from '../shared/shared.module';
+import { FireModule } from '../shared/modules/fire.module';
+import { MaterialModule } from '../shared/modules/material.module';
 
 
 @NgModule({
@@ -19,15 +17,10 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
   ],
   imports: [
     CommonModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserModule,
+    SharedModule,
   ],
   exports: [
     CommonModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserModule,
     HeaderComponent,
     CategoryComponent,
     NotFoundComponent
