@@ -11,7 +11,7 @@
 
     <div class="useredit-right">
       <!-- ngModelがないとngSubmitでform送信されない。ngModelがあるとhtmlのvalue属性やtextareaの初期値は反映されない -->
-      <form class="useredit-form" #form="ngForm" (ngSubmit)="updateUser(form)">
+      <form class="useredit-form" #form="ngForm" (ngSubmit)="updateUser()">
 
         <mat-form-field class="form-field" appearance="fill">
           <mat-label for="displayName">DisplayName</mat-label>

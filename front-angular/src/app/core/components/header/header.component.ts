@@ -11,21 +11,11 @@ import { UserService } from '../../../shared/service/user.service';
 export class HeaderComponent implements OnInit {
 
   constructor(
-    private auth: Auth,
     protected userService: UserService,
     protected authService: AuthService
   ) { }
 
-  protected isLogin: boolean | undefined;
-
   ngOnInit(): void {
-    this.auth.onAuthStateChanged((user) => {
-      // 真偽値に変換する
-      this.isLogin = !!user;
-      if(user) {
-        this.userService.getUserInfo();
-      };
-    })
   }
 
   logout(): void {

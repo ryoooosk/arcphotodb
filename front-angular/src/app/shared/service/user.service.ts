@@ -46,6 +46,8 @@ export class UserService {
     displayName: '',
     photoURL: ''
   };
+  public isLogin: boolean | undefined;
+
     // Google プロバイダ オブジェクトのインスタンスを作成。
   private provider = new GoogleAuthProvider();
 
@@ -131,6 +133,10 @@ export class UserService {
         await setDoc(doc(this.db, "users", user.uid) ,{
           displayName: this.currentUser.displayName,
           photoURL: this.currentUser.photoURL,
+          // ↓先に空の状態でドキュメントフィールドを作成しておく
+          userText: "",
+          twitterUrl: "",
+          instagramUrl: ""
         },{merge: true})
           .then(() => {
             console.log('addDoc complete!');
@@ -147,7 +153,7 @@ export class UserService {
   }
 
   getUserInfo() {
-    onAuthStateChanged(this.auth, async (user) => {
+    return onAuthStateChanged(this.auth, async (user) => {
       if(user) {
         this.currentUser.displayName = user.displayName;
         this.currentUser.photoURL = user.photoURL;
@@ -166,7 +172,7 @@ export class UserService {
           this.userInfo.twitterUrl = userInfo['twitterUrl'];
           this.userInfo.instagramUrl = userInfo['instagramUrl'];
         } else {
-          console.log("No such document!");
+          console.log("No document for currentuser");
         }
       }
     })
@@ -211,6 +217,7 @@ export class UserService {
         // await同士は同期処理になるものの、uploadBytesのthenの終了前に↓が走り始めてしまう。
         await updateProfile(this.auth.currentUser, this.currentUser)
           .then((_) => console.log('updateProfile!'));
+        // ↓初期設定時に空だとエラーになってまう
         await setDoc(doc(this.db, "users", user.uid) ,{
           displayName: this.currentUser.displayName,
           photoURL: this.currentUser.photoURL,

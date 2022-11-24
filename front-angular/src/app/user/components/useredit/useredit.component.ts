@@ -33,7 +33,7 @@ export class UsereditComponent implements OnInit {
     this.userService.previewUserPhoto(photo);
   }
 
-  updateUser(form: NgForm) {
+  updateUser() {
     console.log(this.userInfo);
     this.userService.updateUserInfo(this.userInfo);
   }
