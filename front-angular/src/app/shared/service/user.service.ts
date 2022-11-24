@@ -41,10 +41,12 @@ export class UserService {
   private auth: any = getAuth();
   public currentUser: {
     displayName: string | null,
-    photoURL: string | null
+    photoURL: string | null,
+    uid: string | null
   } = {
     displayName: '',
-    photoURL: ''
+    photoURL: '',
+    uid: ''
   };
   public isLogin: boolean | undefined;
 
@@ -149,34 +151,40 @@ export class UserService {
       }
 
     });
-
   }
 
-  getUserInfo() {
-    return onAuthStateChanged(this.auth, async (user) => {
+  getCurrentUser() {
+    return onAuthStateChanged(this.auth, (user) => {
       if(user) {
         this.currentUser.displayName = user.displayName;
         this.currentUser.photoURL = user.photoURL;
-        // ↓usereditでの写真更新用
+        this.currentUser.uid = user.uid;
         this.photoSrc = user.photoURL;
-        // console.log(this.currentUser);
+        console.log('Get currentuser!');
+      }
+    });
+  }
 
-        const docRef = doc(this.db, "users", user.uid);
-        const docSnap = await getDoc(docRef);
+  async getUserInfo() {
+    if(this.currentUser.uid) {
+      const docRef = doc(this.db, "users", this.currentUser.uid);
+      const docSnap = await getDoc(docRef);
 
-        if(docSnap.exists()) {
-          const userInfo = docSnap.data();
-          console.log(userInfo);
-          this.userInfo.displayName = userInfo['displayName'];
-          this.userInfo.userText = userInfo['userText'];
-          this.userInfo.twitterUrl = userInfo['twitterUrl'];
-          this.userInfo.instagramUrl = userInfo['instagramUrl'];
+      if(docSnap.exists()) {
+        const userInfo = docSnap.data();
+        console.log(userInfo);
+        this.userInfo.displayName = userInfo['displayName'];
+        this.userInfo.userText = userInfo['userText'];
+        this.userInfo.twitterUrl = userInfo['twitterUrl'];
+        this.userInfo.instagramUrl = userInfo['instagramUrl'];
         } else {
           console.log("No document for currentuser");
         }
+      } else {
+        console.log('Not found currentUser uid');
       }
-    })
-  }
+    }
+
 
   // registerUserInfoとほぼ同じだから一緒にしてしまおう
   updateUserInfo(value: {

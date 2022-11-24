@@ -21,7 +21,7 @@ export class AuthService {
   logout(): void {
     signOut(this.auth)
       .then(() => {
-        this.userService.currentUser = {displayName: null, photoURL: null};
+        this.userService.currentUser = {displayName: null, photoURL: null, uid: null};
         this.router.navigateByUrl('/login');
       }).catch(() => {
         console.log('missed logout')
