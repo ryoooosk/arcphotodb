@@ -9,3 +9,5 @@ h4 { margin: 0; font-size: 16px; }
 span { font-size: 16px; }
 a { margin: 0; cursor: pointer; font-size: 16px; text-decoration: none; color: #333333; }
 p { margin: 0; font-size: 16px; color: #333333; }
+
+@import "~cropperjs/dist/cropper.css";

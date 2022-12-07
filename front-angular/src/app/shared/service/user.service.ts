@@ -172,11 +172,11 @@ export class UserService {
 
       if(docSnap.exists()) {
         const userInfo = docSnap.data();
-        console.log(userInfo);
         this.userInfo.displayName = userInfo['displayName'];
         this.userInfo.userText = userInfo['userText'];
         this.userInfo.twitterUrl = userInfo['twitterUrl'];
         this.userInfo.instagramUrl = userInfo['instagramUrl'];
+        console.log('Get userinfo!');
         } else {
           console.log("No document for currentuser");
         }
