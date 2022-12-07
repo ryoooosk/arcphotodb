@@ -27,8 +27,27 @@
   min-width: 200px;
 }
 
+.previewphoto-field {
+  position: relative;
+}
+
+.previewphoto-field::before {
+  /* padding-top=100でアスペクト比をコントロールできる */
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
 .previewphoto {
-  width: 200px;
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  object-fit: cover;
 }
 
 .submit-btn {

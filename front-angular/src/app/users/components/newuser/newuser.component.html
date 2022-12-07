@@ -17,7 +17,7 @@
         <!-- <input>のname属性 → 名前/値の組の部分としてフォームと一緒に送信される -->
         ユーザー画像: <input class="input-box" name="photoURL" type="file" (change)="previewPhoto($event)">
       </label>
-      <img class="previewphoto" [src]=userService.photoSrc>
+      <div class="previewphoto-field"><img class="previewphoto" [src]=userService.photoSrc></div>
     </div>
     <button class="submit-btn" type="submit" [disabled]="name.invalid">ユーザー情報を登録する</button>
   </form>
