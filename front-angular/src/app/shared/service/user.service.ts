@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 // Angular Fire
 import { Auth, signInWithPopup, getAuth, updateProfile, onAuthStateChanged } from '@angular/fire/auth';
@@ -17,9 +17,11 @@ export class UserService {
   constructor(
     private afAuth: Auth,
     private router: Router,
+    private http: HttpClient
   ) { }
 
   // HTTP API
+  private apiUrl = "http://localhost/api/user/";
   public httpOption = {
     // HTTPヘッダとは、Webコンテンツの伝送に用いられるHTTPで、メッセージの前半にある制御情報を記した領域のこと。 WebサーバやWebブラウザが相手方に伝えたい情報を格納する部分で、利用者の目には直接触れない。
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -75,8 +77,8 @@ export class UserService {
       .then((userCredential) => {
         const { user } = userCredential;
         const createUser = { uid: user.uid, email: user.email };
-        // this.http.post('http://example/api/post', createUser, this.httpOption)
-        //   .subscribe(_ => console.log('usercreate success!'));
+        this.http.post(`${this.apiUrl}create`, createUser, this.httpOption)
+          .subscribe(_ => console.log('usercreate success!'));
       });
   }
 
