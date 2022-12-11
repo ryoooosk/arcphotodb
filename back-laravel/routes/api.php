@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\PictureController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +23,8 @@ use App\Http\Controllers\API\UserController;
 
 Route::prefix('user')->group(function() {
     Route::post('/create', [UserController::class, 'createUser']);
+});
+
+Route::prefix('image')->group(function() {
+    Route::post('/store', [PictureController::class, 'uploadImage']);
 });

@@ -11,12 +11,14 @@ import { UserModule } from './user/user.module';
 import { UsersModule } from './users/users.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UploadComponent } from './feature/components/upload/upload.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     DetailComponent,
+    UploadComponent,
   ],
   imports: [
     // BrowserModule(~)はapp.moduleで一度だけのloadとしないとエラー出る

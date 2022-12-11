@@ -1,0 +1,16 @@
+.upload-field {
+  width: 100%;
+}
+
+.preview {
+  margin-top: 30px;
+}
+
+.image {
+  width: 50%;
+}
+
+.btn {
+  margin-top: 10px;
+  display: block;
+}

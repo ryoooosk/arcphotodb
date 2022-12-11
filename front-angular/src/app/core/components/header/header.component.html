@@ -10,5 +10,6 @@
     <a *ngIf="this.userService.isLogin" routerLink="mypage"><span class="user-name">{{ this.userService.currentUser.displayName }}</span> さん</a>
     <button *ngIf="!this.userService.isLogin" class="btn" routerLink="/signup">SignUp / Login</button>
     <button *ngIf="this.userService.isLogin" class="btn" (click)="logout()">Logout</button>
+    <button *ngIf="this.userService.isLogin" class="btn upload" routerLink="/upload">Upload</button>
   </div>
 </header>

@@ -1,0 +1,8 @@
+<div class="upload-field">
+  <form #form="ngForm" (ngSubmit)="store()">
+    <div class="preview"><img class="image" src="{{ this.imageUrl }}"></div>
+    <input id="image" type="file" name="image" accept=".jpg,.png" #photo (change)="previewImage(photo.files)">
+    <button class="btn" type="submit">Upload</button>
+  </form>
+</div>
+
