@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PictureService } from '../../service/picture.service';
 import { UserService } from '../../../shared/service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-upload',
@@ -11,7 +12,7 @@ export class UploadComponent implements OnInit {
 
   constructor(
     private pictureService: PictureService,
-    private userService: UserService
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +39,10 @@ export class UploadComponent implements OnInit {
     this.pictureService.storeImage(this.file)
       .subscribe({
         error: (error) => console.log(error),
-        complete: () => console.log('success Upload!')
+        complete: () => {
+          console.log('success Upload!'),
+          this.router.navigateByUrl('/');
+        }
     });
   }
 

@@ -45,8 +45,8 @@
   </div>
 
   <div class="mypage-main userpicture">
-    <div class="box" *ngFor="let userPictureSrc of userPicturesSrc">
-      <a routerLink="detail"><img src="{{ userPictureSrc }}" alt="a"></a>
+    <div class="box" *ngFor="let userPicture of userPictures">
+      <a routerLink="/mypage/userpicture/{{ userPicture.id }}"><img src="{{ userPicture.path }}" alt="a"></a>
     </div>
   </div>
 

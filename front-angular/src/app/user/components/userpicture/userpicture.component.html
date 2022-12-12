@@ -1,0 +1,11 @@
+<div class="userpicture-wrapper">
+  <div class="userpicture-field">
+    <img *ngIf="userPicture" class="userpicture" src="{{ userPicture.path }}" alt="">
+  </div>
+  <div class="userpicture-info">
+    <div class="button">
+      <button mat-raised-button type="submit" routerLink="/mypage">Back</button>
+      <button mat-raised-button color="warn" type="submit" (click)="deletePicture()">Delete</button>
+    </div>
+  </div>
+</div>

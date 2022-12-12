@@ -40,9 +40,21 @@ export class PictureService {
       );
   }
 
-  getUserPhoto() {
+  getUserPictures() {
     const userUid = this.userService.currentUser.uid;
+    return this.http.get(`${this.apiUrl}/${userUid}/userpicture/all`, this.httpOption)
+  }
 
-    return this.http.get(`${this.apiUrl}/${userUid}/userphoto`, this.httpOption)
+  getUserPicture(id: any) {
+    const userUid = this.userService.currentUser.uid;
+    return this.http.get(`${this.apiUrl}/${userUid}/userpicture/${id}`, this.httpOption)
+  }
+
+  deletePicture(id: any) {
+    const userUid = this.userService.currentUser.uid;
+    return this.http.delete(`${this.apiUrl}/${userUid}/userpicture/${id}/delete`, this.httpOption)
+      .pipe(
+        tap((response) => console.log(response))
+      );
   }
 }

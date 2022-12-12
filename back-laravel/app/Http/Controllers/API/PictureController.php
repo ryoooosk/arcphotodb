@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\Picture;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PictureController extends Controller
 {
@@ -14,18 +15,14 @@ class PictureController extends Controller
             // アップロードされたファイルを取得
             $image      = $request->file('image');
             $filename  = $image->getClientOriginalName();
-            $pictureName   = date('His').'-'.$filename;
-            $pass = '';
-            //move image to public/img folder
-            // $file->move(public_path('img'), $picture);
-
+            // $pictureName   = date('His').'-'.$filename;
             // storage/app/public/img に保存される
-            $pass = $image->storeAs('public/img/', $pictureName);
+            $image->storeAs('public/img/', $filename);
 
             // DBにファイル情報を保存
             Picture::create([
-                'name' => $pictureName,
-                'path' => asset('storage/img/'.$pictureName),
+                'name' => $filename,
+                'path' => asset('storage/img/'.$filename),
                 'userId' => $uid
             ]);
 
@@ -35,9 +32,22 @@ class PictureController extends Controller
         }
     }
 
-    public function getUserPhoto($uid) {
+    public function getUserPictures($uid) {
         $data = Picture::where('userId', $uid)->get();
         return response()->json($data);
+    }
+
+    public function getUserPicture($uid, $id) {
+        $data = Picture::where('userId', $uid)->find($id);
+        return response()->json($data);
+    }
+
+    public function deleteUserPicture($uid, $id) {
+        $data = Picture::where('userId', $uid)->find($id);
+        $data->delete();
+        $filename = $data['name'];
+        Storage::disk('public')->delete("img/".$filename);
+        return response()->json([$id, $data, $filename]);
     }
 
 }
