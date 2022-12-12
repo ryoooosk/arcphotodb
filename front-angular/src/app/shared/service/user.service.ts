@@ -22,9 +22,11 @@ export class UserService {
 
   // HTTP API
   private apiUrl = "http://localhost/api/user/";
-  public httpOption = {
+  private httpOption = {
     // HTTPヘッダとは、Webコンテンツの伝送に用いられるHTTPで、メッセージの前半にある制御情報を記した領域のこと。 WebサーバやWebブラウザが相手方に伝えたい情報を格納する部分で、利用者の目には直接触れない。
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
   };
 
   // JavaScript FileAPI

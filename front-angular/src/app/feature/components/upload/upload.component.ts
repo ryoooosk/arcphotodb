@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PictureService } from '../../service/picture.service';
+import { UserService } from '../../../shared/service/user.service';
 
 @Component({
   selector: 'app-upload',
@@ -10,13 +11,13 @@ export class UploadComponent implements OnInit {
 
   constructor(
     private pictureService: PictureService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
   }
 
   private reader =  new FileReader();
-  private formData = new FormData();
 
   private file: any;
 

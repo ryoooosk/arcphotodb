@@ -7,9 +7,7 @@
     </div>
 
     <div class="mypage-header-right">
-
       <div class="user-info">
-
         <div class="userinfo-top">
           <h3>{{ this.userService.currentUser.displayName }}</h3>
           <div class="profileedit-container">
@@ -36,19 +34,20 @@
       </div>
 
       <div class="user-action">
-        <p>投稿数: <span class="bold">xxx</span> 件</p>
+        <p>投稿数: <span class="bold">xxx</span></p>
         <!-- いいねの絵文字 -->
-        <p>いいねした数: <span class="bold">xxxx</span> 回</p>
+        <p>いいねした数: <span class="bold">xxxx</span></p>
         <!-- 保存の絵文字 -->
-        <p>保存数: <span class="bold">xx</span> 個</p>
+        <p>保存数: <span class="bold">xx</span></p>
       </div>
-
     </div>
 
   </div>
 
-  <div class="mypage-main">
-
+  <div class="mypage-main userpicture">
+    <div class="box" *ngFor="let userPictureSrc of userPicturesSrc">
+      <a routerLink="detail"><img src="{{ userPictureSrc }}" alt="a"></a>
+    </div>
   </div>
 
 

@@ -8,23 +8,36 @@ use Illuminate\Http\Request;
 
 class PictureController extends Controller
 {
-    public function uploadImage(Request $request) {
-        // // ディレクトリ名
-        // $dir = 'image';
-        // // sampleディレクトリに画像を保存
-        // $fileName = $request->name;
-        // $request->file('image')->store("public/{$dir}");
-
+    public function uploadImage(Request $request, $uid) {
+        // hasFileでkeyを含むファイルがあるか確認
         if ($request->hasFile('image')) {
-            $file      = $request->file('image');
-            $filename  = $file->getClientOriginalName();
-            $extension = $file->getClientOriginalExtension();
-            $picture   = date('His').'-'.$filename;
+            // アップロードされたファイルを取得
+            $image      = $request->file('image');
+            $filename  = $image->getClientOriginalName();
+            $pictureName   = date('His').'-'.$filename;
+            $pass = '';
             //move image to public/img folder
-            $file->move(public_path('img'), $picture);
+            // $file->move(public_path('img'), $picture);
+
+            // storage/app/public/img に保存される
+            $pass = $image->storeAs('public/img/', $pictureName);
+
+            // DBにファイル情報を保存
+            Picture::create([
+                'name' => $pictureName,
+                'path' => asset('storage/img/'.$pictureName),
+                'userId' => $uid
+            ]);
+
             return response()->json(["message" => "Image Uploaded Succesfully"]);
         } else {
-            return response()->json(["message" => "Select image first."]);
+            return response()->json(["message" => "Not Found image File", $request]);
         }
     }
+
+    public function getUserPhoto($uid) {
+        $data = Picture::where('userId', $uid)->get();
+        return response()->json($data);
+    }
+
 }

@@ -26,5 +26,6 @@ Route::prefix('user')->group(function() {
 });
 
 Route::prefix('image')->group(function() {
-    Route::post('/store', [PictureController::class, 'uploadImage']);
+    Route::post('/{uid}/store', [PictureController::class, 'uploadImage']);
+    Route::get('/{uid}/userphoto', [PictureController::class, 'getUserPhoto']);
 });
