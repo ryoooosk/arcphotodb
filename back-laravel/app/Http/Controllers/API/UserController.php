@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function createUser(Request $request) {
         $data['email'] = $request['email'];
-        $data['userId'] = $request['uid'];
+        $data['uid'] = $request['uid'];
         User::create($data);
         return response()->json($data);
     }

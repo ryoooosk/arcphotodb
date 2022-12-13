@@ -23,7 +23,7 @@ class PictureController extends Controller
             Picture::create([
                 'name' => $filename,
                 'path' => asset('storage/img/'.$filename),
-                'userId' => $uid
+                'uid' => $uid
             ]);
 
             return response()->json(["message" => "Image Uploaded Succesfully"]);
@@ -33,17 +33,17 @@ class PictureController extends Controller
     }
 
     public function getUserPictures($uid) {
-        $data = Picture::where('userId', $uid)->get();
+        $data = Picture::where('uid', $uid)->get();
         return response()->json($data);
     }
 
     public function getUserPicture($uid, $id) {
-        $data = Picture::where('userId', $uid)->find($id);
+        $data = Picture::where('uid', $uid)->find($id);
         return response()->json($data);
     }
 
     public function deleteUserPicture($uid, $id) {
-        $data = Picture::where('userId', $uid)->find($id);
+        $data = Picture::where('uid', $uid)->find($id);
         $data->delete();
         $filename = $data['name'];
         Storage::disk('public')->delete("img/".$filename);
