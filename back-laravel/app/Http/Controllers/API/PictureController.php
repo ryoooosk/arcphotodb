@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Picture;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -23,7 +24,8 @@ class PictureController extends Controller
             Picture::create([
                 'name' => $filename,
                 'path' => asset('storage/img/'.$filename),
-                'uid' => $uid
+                'uid' => $uid,
+                'user_id' => User::where("uid", $uid)->value('id')
             ]);
 
             return response()->json(["message" => "Image Uploaded Succesfully"]);
@@ -33,12 +35,18 @@ class PictureController extends Controller
     }
 
     public function getUserPictures($uid) {
-        $data = Picture::where('uid', $uid)->get();
+        // リレーションを使ってUserモデルからPicture配列を引き出したい
+        // User::find()->picturesだとフロント側で[object Object]となってしまう
+
+        // $user_id = User::where('uid', $uid)->value('id');
+        $user_id = User::where('uid', $uid)->value('id');
+        // $data = User::find($user_id)->pictures()->get();
+        $data = Picture::where('user_id', $user_id)->get();
         return response()->json($data);
     }
 
     public function getUserPicture($uid, $id) {
-        $data = Picture::where('uid', $uid)->find($id);
+        $data = Picture::find($id);
         return response()->json($data);
     }
 
