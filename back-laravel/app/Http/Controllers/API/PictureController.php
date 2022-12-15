@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 class PictureController extends Controller
 {
     public function uploadImage(Request $request, $uid) {
-        // hasFileでkeyを含むファイルがあるか確認
+        // hasFileでkey(image)を含むファイルがあるか確認
         if ($request->hasFile('image')) {
             // アップロードされたファイルを取得
             $image      = $request->file('image');
@@ -35,13 +35,9 @@ class PictureController extends Controller
     }
 
     public function getUserPictures($uid) {
-        // リレーションを使ってUserモデルからPicture配列を引き出したい
-        // User::find()->picturesだとフロント側で[object Object]となってしまう
-
-        // $user_id = User::where('uid', $uid)->value('id');
+        // リレーションするキーを初期設定のid→user_idにすれば一行ですむかも？
         $user_id = User::where('uid', $uid)->value('id');
-        // $data = User::find($user_id)->pictures()->get();
-        $data = Picture::where('user_id', $user_id)->get();
+        $data = User::find($user_id)->pictures;
         return response()->json($data);
     }
 

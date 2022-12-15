@@ -12,17 +12,13 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'email',
         'uid',
     ];
 
+    // ↓User-Pictures(1対多)の多側だから単数形
     public function pictures() {
-        return $this->belongsTo(Picture::class, 'user_id', 'id');
+        return $this->hasMany(Picture::class);
     }
 }
