@@ -31,4 +31,5 @@ Route::prefix('image')->group(function() {
     Route::get('/{uid}/userpicture/all', [PictureController::class, 'getUserPictures']);
     Route::get('/{uid}/userpicture/{id}', [PictureController::class, 'getUserPicture']);
     Route::delete('/{uid}/userpicture/{id}/delete', [PictureController::class, 'deleteUserPicture']);
+    Route::post('/get/tags', [PictureController::class, 'getTagPictures']);
 });

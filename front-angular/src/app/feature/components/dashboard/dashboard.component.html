@@ -1,23 +1,6 @@
 <div class="main-container">
-  <div class="box">
-    <a routerLink="detail"><img src="" alt="a"></a>
-  </div>
-  <div class="box">
-    <a routerLink="detail"><img src="" alt="a"></a>
-  </div>
-  <div class="box">
-    <a routerLink="detail"><img src="" alt="a"></a>
-  </div>
-  <div class="box">
-    <a routerLink="detail"><img src="" alt="a"></a>
-  </div>
-  <div class="box">
-    <a routerLink="detail"><img src="" alt="a"></a>
-  </div>
-  <div class="box">
-    <a routerLink="detail"><img src="" alt="a"></a>
-  </div>
-  <div class="box">
-    <a routerLink="detail"><img src="" alt="a"></a>
+  <div class="box" *ngFor="let tagPictureSrc of this.tagService.tagPicturesSrc">
+    <!-- routerLinkに当該写真のidを入れる -->
+    <a routerLink="/mypage/userpicture/{{ tagPictureSrc }}"><img src="{{ tagPictureSrc }}" alt="a"></a>
   </div>
 </div>

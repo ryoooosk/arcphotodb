@@ -1,69 +1,22 @@
 <div class="main-left">
   <h4>Tags List</h4>
-  <p (click)="openStyle()">Style</p>
-  <ul class="category-title-style">
-    <li [class.hide]="styleHide">
-      <!-- inputのidとlabelのforが一致するとlabelをクリックでinput動作 -->
-      <input id="Modanism" type="checkbox" class="checkbox">
-      <label for="Modanism"> Modanism</label>
-    </li>
-    <li [class.hide]="styleHide">
-      <input id="PostModan" type="checkbox" class="checkbox">
-      <label for="PostModan"> PostModan</label>
-    </li>
-    <li [class.hide]="styleHide">
-      <input id="21Century" type="checkbox" class="checkbox">
-      <label for="21Century"> 21Century</label>
-    </li>
-  </ul>
-  <p (click)="openHistory()">History</p>
-  <ul class="category-title-history">
-    <li [class.hide]="historyHide">
-      <input id="beforeEdo" type="checkbox" class="checkbox">
-      <label for="beforeEdo"> Before Edo</label>
-    </li>
-    <li [class.hide]="historyHide">
-      <input id="Edo" type="checkbox" class="checkbox">
-      <label for="Edo"> Edo</label>
-    </li>
-    <li [class.hide]="historyHide">
-      <input id="meiji&taisho" type="checkbox" class="checkbox">
-      <label for="meiji&taisho"> Meiji&Taisho</label>
-    </li>
-    <li [class.hide]="historyHide">
-      <input id="showa" type="checkbox" class="checkbox">
-      <label for="showa"> Showa</label>
-    </li>
-    <li [class.hide]="historyHide">
-      <input id="heisei" type="checkbox" class="checkbox">
-      <label for="heisei"> Heisei</label>
-    </li>
-    <li [class.hide]="historyHide">
-      <input id="reiwa" type="checkbox" class="checkbox">
-      <label for="reiwa"> reiwa</label>
-    </li>
-  </ul>
-  <p (click)="openPlace()">Place</p>
+  <p (click)="openClose()">Place</p>
   <ul class="category-title-place">
     <li [class.hide]="placeHide">
-      <input id="chiyoda" type="checkbox" class="checkbox">
+      <input id="chiyoda" type="checkbox" class="checkbox" [(ngModel)]="placeTags.chiyoda.selected" (change)="getPicture()">
       <label for="chiyoda"> Chiyoda</label>
     </li>
     <li [class.hide]="placeHide">
-      <input id="shinjuku" type="checkbox" class="checkbox">
+      <input id="minato" type="checkbox" class="checkbox" [(ngModel)]="placeTags.minato.selected" (change)="getPicture()">
+      <label for="minato"> Minato</label>
+    </li>
+    <li [class.hide]="placeHide">
+      <input id="shinjuku" type="checkbox" class="checkbox" [(ngModel)]="placeTags.shinjuku.selected" (change)="getPicture()">
       <label for="shinjuku"> Shinjuku</label>
     </li>
     <li [class.hide]="placeHide">
-      <input id="shibuya" type="checkbox" class="checkbox">
+      <input id="shibuya" type="checkbox" class="checkbox" [(ngModel)]="placeTags.shibuya.selected" (change)="getPicture()">
       <label for="shibuya"> Shibuya</label>
-    </li>
-    <li [class.hide]="placeHide">
-      <input id="koto" type="checkbox" class="checkbox">
-      <label for="koto"> Koto</label>
-    </li>
-    <li [class.hide]="placeHide">
-      <input id="minato" type="checkbox" class="checkbox">
-      <label for="minato"> Minato</label>
     </li>
   </ul>
 

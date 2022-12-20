@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../core/service/auth.service';
-import { UserService } from '../../../shared/service/user.service';
-import { Auth } from '@angular/fire/auth';
+import { CategoryComponent } from '../../../core/components/category/category.component';
+import { TagService } from '../../../core/service/tag.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +10,7 @@ import { Auth } from '@angular/fire/auth';
 export class DashboardComponent implements OnInit {
 
   constructor(
+    protected tagService: TagService
   ) { }
 
   ngOnInit(): void {

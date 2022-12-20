@@ -8,6 +8,7 @@ use App\Models\Tag;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Mockery\Undefined;
 
 class PictureController extends Controller
 {
@@ -57,6 +58,18 @@ class PictureController extends Controller
             return response()->json([
                 "message" => "Not Fount Tags",
             ]);
+        }
+    }
+
+    public function getTagPictures(Request $request) {
+        if(!(empty($request->tags))) {
+            $data = [];
+            foreach($request->tags as $response) {
+                array_push($data, Tag::find($response)->pictures);
+            }
+            return response()->json($data);
+        } else {
+            return response()->json(["message" => "Not Found Picture", $request]);
         }
     }
 

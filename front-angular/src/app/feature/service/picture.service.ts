@@ -1,4 +1,4 @@
-import { Injectable, resolveForwardRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { UserService } from '../../shared/service/user.service';
@@ -13,8 +13,8 @@ export class PictureService {
     private userService: UserService
   ) { }
 
-  private apiUrl = 'http://localhost/api/image';
-  private httpOption = {
+  public apiUrl = 'http://localhost/api/image';
+  public httpOption = {
     // HTTPヘッダとは、Webコンテンツの伝送に用いられるHTTPで、メッセージの前半にある制御情報を記した領域のこと。 WebサーバやWebブラウザが相手方に伝えたい情報を格納する部分で、利用者の目には直接触れない。
     headers: new HttpHeaders({
       // 'Content-Type': 'multipart/form-data',
