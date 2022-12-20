@@ -2,6 +2,25 @@
   <form #form="ngForm" (ngSubmit)="store()">
     <div class="preview"><img class="image" src="{{ this.imageUrl }}"></div>
     <input id="image" type="file" name="image" accept=".jpg,.png" #photo (change)="previewImage(photo.files)">
+    <div class="tag-field">
+      <p>タグ属性</p>
+
+      <mat-checkbox class="check" name="chiyoda" [(ngModel)]="tags[1].selected">Chiyoda</mat-checkbox>
+      <!-- <input class="check" id="chiyoda-upload" type="checkbox" name="chiyoda"> -->
+      <!-- <label class="label" for="chiyoda-upload">Chiyoda</label> -->
+
+      <mat-checkbox class="check" name="minato" [(ngModel)]="tags[2].selected">Minato</mat-checkbox>
+      <!-- <input class="check" id="minato-upload" type="checkbox" name="minato"> -->
+      <!-- <label class="label" for="minato-upload">Minato</label> -->
+
+      <mat-checkbox class="check" name="shinjuku" [(ngModel)]="tags[3].selected">Shinjuku</mat-checkbox>
+      <!-- <input class="check" id="shinjuku-upload" type="checkbox" name="shinjuku"> -->
+      <!-- <label class="label" for="shinjuku-upload">Shinjuku</label> -->
+
+      <mat-checkbox class="check" name="shibuya" [(ngModel)]="tags[4].selected">Shibuya</mat-checkbox>
+      <!-- <input class="check" id="shibuya-upload" type="checkbox" name="shibuya"> -->
+      <!-- <label class="label" for="shibuya-upload">Shibuya</label> -->
+    </div>
     <button class="btn" type="submit">Upload</button>
   </form>
 </div>

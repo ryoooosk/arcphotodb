@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('tag_picture', function (Blueprint $table) {
             $table->unsignedBigInteger('picture_id');
             $table->unsignedBigInteger('tag_id');
+            // ↓picture_idとtag_idの組み合わせが一意であることを保証する
+            $table->primary(['picture_id','tag_id']);
 
             $table->foreign('picture_id')->references('id')->on('pictures');
             $table->foreign('tag_id')->references('id')->on('tags');

@@ -1,3 +1,11 @@
+p {
+  margin-bottom: 0px;
+}
+
+.tag-field {
+  margin-top: 15px;
+}
+
 .upload-field {
   width: 100%;
 }
@@ -8,6 +16,14 @@
 
 .image {
   width: 50%;
+}
+
+mat-checkbox {
+  margin-right: 10px;
+}
+
+.label, .check {
+  cursor: pointer;
 }
 
 .btn {

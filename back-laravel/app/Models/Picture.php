@@ -21,7 +21,7 @@ class Picture extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function roles() {
-        return $this->belongsToMany(Role::class);
+    public function tags() {
+        return $this->belongsToMany(Tag::class, 'tag_picture');
     }
 }

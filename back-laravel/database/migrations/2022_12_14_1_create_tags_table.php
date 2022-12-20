@@ -15,10 +15,8 @@ return new class extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->id('id');
-            $table->string('chiyoda');
-            $table->string('minato');
-            $table->string('shinjuku');
-            $table->string('shibuya');
+            $table->string('name')->unique();
+            $table->tinyInteger('type')->nullable();
         });
     }
 

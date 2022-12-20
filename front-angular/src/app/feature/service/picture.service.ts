@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, resolveForwardRef } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { UserService } from '../../shared/service/user.service';
@@ -22,21 +22,32 @@ export class PictureService {
     })
   };
   private myFormData = new FormData();
+  private tagsData = {
+    tags: [],
+    picture_id: ''
+  };
 
-  storeImage(image: File): Observable<any> {
-    // ↑で最初からheaders入ってるとなぜかダメで↓でappendだとうまくいく
+  storeImage(image: File, tags: any): Observable<any> {
+     // ↑で最初からheaders入ってるとなぜかダメで↓でappendだとうまくいく
     this.httpOption.headers.append('Content-Type', 'multipart/form-data');
     this.httpOption.headers.append('Accept', 'application/json');
     // appendはHttpHeadersのインスタンスを返す
-
     // ↓appendの第一引数がkeyになる
     this.myFormData.append('image', image);
+    this.tagsData.tags = tags;
 
     const userUid = this.userService.currentUser.uid;
-
+    // myFormDataとタグ情報をセットでpost送信したい↓
     return this.http.post(`${this.apiUrl}/${userUid}/store`, this.myFormData, this.httpOption)
       .pipe(
-        tap((response) => console.log(response)),
+        tap((response: any) => {
+          const picture_id = response['picture_id'];
+          this.tagsData.picture_id = picture_id;
+          console.log(this.tagsData);
+
+          this.http.post(`${this.apiUrl}/${userUid}/store/tags`, this.tagsData, this.httpOption)
+            .subscribe((response) => console.log(response));
+        }),
       );
   }
 

@@ -27,6 +27,7 @@ Route::prefix('user')->group(function() {
 
 Route::prefix('image')->group(function() {
     Route::post('/{uid}/store', [PictureController::class, 'uploadImage']);
+    Route::post('/{uid}/store/tags', [PictureController::class, 'uploadTags']);
     Route::get('/{uid}/userpicture/all', [PictureController::class, 'getUserPictures']);
     Route::get('/{uid}/userpicture/{id}', [PictureController::class, 'getUserPicture']);
     Route::delete('/{uid}/userpicture/{id}/delete', [PictureController::class, 'deleteUserPicture']);

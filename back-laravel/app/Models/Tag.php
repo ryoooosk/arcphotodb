@@ -10,13 +10,13 @@ class Tag extends Model
     use HasFactory;
 
     protected $fillable = [
-        'chiyoda',
-        'minato',
-        'shinjuku',
-        'shibuya'
+        'id',
+        'name',
+        'type'
     ];
 
     public function pictures() {
-        return $this->belongsToMany(Picture::class);
+        // ↓中間テーブル名は２つのテーブルをアルファベット順に"_"で繋いだものになる
+        return $this->belongsToMany(Picture::class, 'tag_picture');
     }
 }
