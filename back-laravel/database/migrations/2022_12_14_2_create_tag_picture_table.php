@@ -19,8 +19,8 @@ return new class extends Migration
             // ↓picture_idとtag_idの組み合わせが一意であることを保証する
             $table->primary(['picture_id','tag_id']);
 
-            $table->foreign('picture_id')->references('id')->on('pictures');
-            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->foreign('picture_id')->references('id')->on('pictures')->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }
 
