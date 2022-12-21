@@ -37,7 +37,6 @@ export class PictureService {
     this.tagsData.tags = tags;
 
     const userUid = this.userService.currentUser.uid;
-    // myFormDataとタグ情報をセットでpost送信したい↓
     return this.http.post(`${this.apiUrl}/${userUid}/store`, this.myFormData, this.httpOption)
       .pipe(
         tap((response: any) => {

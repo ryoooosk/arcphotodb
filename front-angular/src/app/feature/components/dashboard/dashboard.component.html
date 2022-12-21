@@ -1,6 +1,5 @@
 <div class="main-container">
   <div class="box" *ngFor="let tagPicture of this.tagService.tagPictures">
-    <!-- routerLinkに当該写真のidを入れる -->
-    <a routerLink="/mypage/userpicture/{{ tagPicture.id }}"><img src="{{ tagPicture.path }}" alt="a"></a>
+    <a routerLink="/mypage/userpicture/{{ tagPicture.id }}"><img src="{{ tagPicture.path }}" ></a>
   </div>
 </div>

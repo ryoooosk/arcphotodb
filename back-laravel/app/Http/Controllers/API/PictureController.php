@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Storage;
 class PictureController extends Controller
 {
     public function uploadImage(Request $request, $uid) {
-        // post時にはデータは格納されているぽい→Laravelで上手くキャッチできていない
         $data = $request->all();
         // hasFileでkey(image)を含むファイルがあるか確認
         if ($request->hasFile('image')) {
@@ -23,7 +22,6 @@ class PictureController extends Controller
             // storage/app/public/img に保存される
             $image->storeAs('public/img/', $filename);
 
-            // picturesテーブルにファイル情報を保存
             Picture::create([
                 'name' => $pictureName,
                 'path' => asset('storage/img/'.$filename),
