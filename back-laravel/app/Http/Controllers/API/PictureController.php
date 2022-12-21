@@ -8,7 +8,6 @@ use App\Models\Tag;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Mockery\Undefined;
 
 class PictureController extends Controller
 {
@@ -63,13 +62,15 @@ class PictureController extends Controller
 
     public function getTagPictures(Request $request) {
         if(!(empty($request->tags))) {
+            // 必要な写真データを１階層の配列に格納したい
             $data = [];
-            foreach($request->tags as $response) {
-                array_push($data, Tag::find($response)->pictures);
+            foreach($request->tags as $id) {
+                $pictures = Tag::find($id)->pictures;
+                foreach($pictures as $picture) {
+                    array_push($data, $picture);
+                }
             }
             return response()->json($data);
-        } else {
-            return response()->json(["message" => "Not Found Picture", $request]);
         }
     }
 

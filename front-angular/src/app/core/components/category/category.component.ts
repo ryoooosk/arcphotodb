@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TagService } from '../../service/tag.service';
 import { tap } from 'rxjs';
+import { LoginComponent } from '../../../users/components/login/login.component';
 
 @Component({
   selector: 'app-category',
@@ -43,26 +44,25 @@ export class CategoryComponent implements OnInit {
         result.push(value.id);
       }
     }
-    console.log(result);
+    if(result.length) {
+      console.log(result);
+    }
 
     this.tagService.getPictures(result)
       .pipe(
         tap((response) => {
-          this.tagService.tagPictures = response;
-          console.log(this.tagService.tagPictures);
-        }),
-        tap(() => {
-          for(let tag=0; tag<this.tagService.tagPictures.length; tag+=1) {
-            for(let count=0; count<this.tagService.tagPictures[tag].length; count+=1) {
-              this.tagService.tagPicturesSrc.push(this.tagService.tagPictures[tag][count].path);
+          if(response) {
+            this.tagService.tagPictures = response;
+            console.log(this.tagService.tagPictures);
+            for(let i = 0; i < this.tagService.tagPictures.length; i+=1) {
+              this.tagService.tagPicturesSrc.push(this.tagService.tagPictures[i].path);
             }
           }
-        })
+        }),
       )
       .subscribe({
         error: (error) => console.log(error),
         complete: () => {
-          console.log(this.tagService.tagPicturesSrc);
           console.log('Get tagPictures!');
         }
       });
