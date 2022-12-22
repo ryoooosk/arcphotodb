@@ -1,18 +1,20 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PictureService } from '../../../feature/service/picture.service';
+import { PictureService } from '../../service/picture.service';
 
 @Component({
-  selector: 'app-userpicture',
-  templateUrl: './userpicture.component.html',
-  styleUrls: ['./userpicture.component.css']
+  selector: 'app-picture',
+  templateUrl: './picture.component.html',
+  styleUrls: ['./picture.component.css']
 })
-export class UserpictureComponent implements OnInit {
+export class PictureComponent implements OnInit {
 
   constructor(
     private pictureService: PictureService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -20,6 +22,11 @@ export class UserpictureComponent implements OnInit {
   }
 
   public userPicture: any;
+
+  // 一つ前の画面に戻る
+  goBack() {
+    this.location.back();
+  }
 
   getUserPicture() {
     // ↓の式には+をつけない

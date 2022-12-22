@@ -1,5 +1,5 @@
 <div class="main-container">
   <div class="box" *ngFor="let tagPicture of this.tagService.tagPictures">
-    <a routerLink="/mypage/userpicture/{{ tagPicture.id }}"><img src="{{ tagPicture.path }}" ></a>
+    <a routerLink="/picture/{{ tagPicture.id }}"><img src="{{ tagPicture.path }}" ></a>
   </div>
 </div>

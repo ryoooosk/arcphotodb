@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 // Components
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './feature/components/dashboard/dashboard.component';
-import { DetailComponent } from './feature/components/detail/detail.component';
 // Original Module
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
@@ -12,13 +11,14 @@ import { UsersModule } from './users/users.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UploadComponent } from './feature/components/upload/upload.component';
+import { PictureComponent } from './feature/components/picture/picture.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    DetailComponent,
     UploadComponent,
+    PictureComponent
   ],
   imports: [
     // BrowserModule(~)はapp.moduleで一度だけのloadとしないとエラー出る

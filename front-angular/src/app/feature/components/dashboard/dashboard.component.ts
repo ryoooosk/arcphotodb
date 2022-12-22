@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryComponent } from '../../../core/components/category/category.component';
 import { TagService } from '../../../core/service/tag.service';
 
 @Component({

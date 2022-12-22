@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TagService } from '../../service/tag.service';
 import { tap } from 'rxjs';
-import { LoginComponent } from '../../../users/components/login/login.component';
 
 @Component({
   selector: 'app-category',
