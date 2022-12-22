@@ -79,7 +79,7 @@ class PictureController extends Controller
         return response()->json($data);
     }
 
-    public function getUserPicture($uid, $id) {
+    public function getUserPicture($id) {
         $data = Picture::find($id);
         return response()->json($data);
     }

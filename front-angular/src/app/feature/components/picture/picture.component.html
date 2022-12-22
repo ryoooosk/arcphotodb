@@ -5,7 +5,7 @@
   <div class="userpicture-info">
     <div class="button">
       <button mat-raised-button type="submit" (click)="goBack()">Back</button>
-      <button mat-raised-button color="warn" type="submit" (click)="deletePicture()">Delete</button>
+      <button *ngIf="matchUser" mat-raised-button color="warn" type="submit" (click)="deletePicture()">Delete</button>
     </div>
   </div>
 </div>

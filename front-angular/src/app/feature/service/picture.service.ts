@@ -57,7 +57,7 @@ export class PictureService {
 
   getUserPicture(id: any) {
     const userUid = this.userService.currentUser.uid;
-    return this.http.get(`${this.apiUrl}/${userUid}/userpicture/${id}`, this.httpOption)
+    return this.http.get(`${this.apiUrl}/userpicture/${id}`, this.httpOption)
   }
 
   deletePicture(id: any) {
