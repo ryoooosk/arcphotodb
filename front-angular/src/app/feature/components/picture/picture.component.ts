@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PictureService } from '../../service/picture.service';
 import { UserService } from '../../../shared/service/user.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-picture',
@@ -38,14 +37,15 @@ export class PictureComponent implements OnInit {
     return this.pictureService.getUserPicture(id)
       .subscribe((response) => {
         this.userPicture = response;
-
+        console.log(this.userPicture);
         // 取得した写真を投稿したuidと現在ログイン中のuidが同じならmatchUserをtrueに
-        if(this.userPicture.uid = this.userService.currentUser.uid) {
+        if(this.userPicture.uid === this.userService.currentUser.uid) {
           this.matchUser = true;
+          console.log('pictureUid = cuurentUid');
         } else {
           this.matchUser = false;
+          console.log('pictureUid != cuurentUser');
         }
-        console.log('Get Picture!')
       });
   }
 
