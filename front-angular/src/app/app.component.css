@@ -9,12 +9,7 @@
   gap: 2%;
 }
 
-app-category {
-  width: 20%;
-  min-width: 160px;
-}
-
-.main-right {
-  width: 80%;
+.main {
+  width: 100%;
 }
 

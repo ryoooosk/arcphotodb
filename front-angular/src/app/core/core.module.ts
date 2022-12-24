@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // Components
 import { HeaderComponent } from './components/header/header.component';
-import { CategoryComponent } from './components/category/category.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SharedModule } from '../shared/shared.module';
 
@@ -11,7 +10,6 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     NotFoundComponent,
     HeaderComponent,
-    CategoryComponent,
   ],
   imports: [
     CommonModule,
@@ -20,7 +18,6 @@ import { SharedModule } from '../shared/shared.module';
   exports: [
     CommonModule,
     HeaderComponent,
-    CategoryComponent,
     NotFoundComponent
   ]
 })

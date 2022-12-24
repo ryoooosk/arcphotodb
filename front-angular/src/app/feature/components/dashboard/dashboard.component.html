@@ -1,5 +1,32 @@
-<div class="main-container">
-  <div class="box" *ngFor="let tagPicture of this.tagService.tagPictures">
-    <a routerLink="/picture/{{ tagPicture.id }}"><img src="{{ tagPicture.path }}" ></a>
+<div class="main-wrapper">
+
+  <div class="main-left">
+    <h4>Tags List</h4>
+    <p class="tagname click" (click)="openClose()">Place</p>
+    <ul class="">
+      <li class="list" [class.hide]="placeHide">
+        <input id="chiyoda" type="checkbox" class="checkbox click" [(ngModel)]="placeTags.chiyoda.selected" (change)="getPicture()">
+        <label class="click" for="chiyoda"> Chiyoda</label>
+      </li>
+      <li class="list" [class.hide]="placeHide">
+        <input id="minato" type="checkbox" class="checkbox click" [(ngModel)]="placeTags.minato.selected" (change)="getPicture()">
+        <label class="click" for="minato"> Minato</label>
+      </li>
+      <li class="list" [class.hide]="placeHide">
+        <input id="shinjuku" type="checkbox" class="checkbox click" [(ngModel)]="placeTags.shinjuku.selected" (change)="getPicture()">
+        <label class="click" for="shinjuku"> Shinjuku</label>
+      </li>
+      <li class="list" [class.hide]="placeHide">
+        <input id="shibuya" type="checkbox" class="checkbox click" [(ngModel)]="placeTags.shibuya.selected" (change)="getPicture()">
+        <label class="click" for="shibuya"> Shibuya</label>
+      </li>
+    </ul>
   </div>
+
+  <div class="main-container">
+    <div class="box" *ngFor="let tagPicture of this.tagService.tagPictures">
+      <a routerLink="/picture/{{ tagPicture.id }}"><img src="{{ tagPicture.path }}" ></a>
+    </div>
+  </div>
+
 </div>

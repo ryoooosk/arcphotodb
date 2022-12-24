@@ -1,4 +1,39 @@
+
+/*-----left -----*/
+
+.main-wrapper {
+  display: flex;
+  gap: 30px;
+}
+.main-left {
+  width: 20%;
+  background-color: lightgray;
+  border-radius: 9px;
+  padding: 15px;
+}
+
+.hide {
+  display: none;
+}
+
+.tagname {
+  margin: 0;
+  display: inline-block;
+}
+
+.click {
+  cursor: pointer;
+}
+
+.list {
+  list-style: none;
+  cursor: pointer;
+}
+
+/*----- right -----*/
+
 .main-container {
+  width: 70%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 5px;
@@ -24,6 +59,4 @@ img {
   left: 0;
   margin: auto;
   object-fit: cover;
-  min-width: 200px;
-  min-height: 200px;
 }
