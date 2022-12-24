@@ -56,7 +56,6 @@ export class PictureService {
   }
 
   getUserPicture(id: any) {
-    const userUid = this.userService.currentUser.uid;
     return this.http.get(`${this.apiUrl}/userpicture/${id}`, this.httpOption)
   }
 

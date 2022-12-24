@@ -157,8 +157,8 @@ export class UserService {
     });
   }
 
-  getCurrentUser() {
-    return onAuthStateChanged(this.auth, (user) => {
+  async getCurrentUser() {
+    onAuthStateChanged(this.auth, (user) => {
       if(user) {
         this.currentUser.displayName = user.displayName;
         this.currentUser.photoURL = user.photoURL;

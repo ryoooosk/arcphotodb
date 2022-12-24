@@ -2,10 +2,13 @@
   <div class="userpicture-field">
     <img *ngIf="userPicture" class="userpicture" src="{{ userPicture.path }}">
   </div>
-  <div class="userpicture-info">
+  <div class="action-btn">
     <div class="button">
-      <button mat-raised-button type="submit" (click)="goBack()">Back</button>
-      <button *ngIf="matchUser" mat-raised-button color="warn" type="submit" (click)="deletePicture()">Delete</button>
+      <button mat-raised-button (click)="goBack()">Back</button>
+      <button *ngIf="matchUser" mat-raised-button color="warn" (click)="deletePicture()">Delete</button>
+    </div>
+    <div class="favorite">
+      <button mat-raised-button color="primary" (click)="deletePicture()">お気に入りする</button>
     </div>
   </div>
 </div>
