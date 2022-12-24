@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PictureService } from '../../service/picture.service';
 import { UserService } from '../../../shared/service/user.service';
-import { Auth } from '@angular/fire/auth';
+import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-picture',
@@ -21,16 +21,8 @@ export class PictureComponent implements OnInit {
     private location: Location
   ) {}
 
-  ngOnInit(): any {
-    this.auth.onAuthStateChanged((user) => {
-      if(user) {
-        this.userService.currentUser.displayName = user.displayName;
-        this.userService.currentUser.photoURL = user.photoURL;
-        this.userService.currentUser.uid = user.uid;
-        this.userService.photoSrc = user.photoURL;
-      }
-      this.getUserPicture();
-    })
+  async ngOnInit(): Promise<any> {
+    this.getUserPicture();
   }
 
   public userPicture: any;
@@ -44,18 +36,26 @@ export class PictureComponent implements OnInit {
   getUserPicture() {
     // ↓の式には+をつけない
     const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.userService.getCurrentUser();
     return this.pictureService.getUserPicture(id)
       .subscribe((response) => {
         // responseには取得した画像データ
         this.userPicture = response;
         // 画像データのuidとアクセスしたユーザーのuidが同じなら削除ボタンを表示する
-        if(this.userPicture.uid === this.userService.currentUser.uid) {
-          this.matchUser = true;
-          console.log('pictureUid = currentUid');
-        } else {
-          this.matchUser = false;
-          console.log('pictureUid != currentUser');
-        }
+        onAuthStateChanged(this.auth, (user) => {
+          if(user) {
+            if(this.userPicture.uid === user.uid) {
+              this.matchUser = true;
+              console.log('pictureUid = currentUid');
+            } else {
+              this.matchUser = false;
+              console.log('pictureUid != currentUser');
+            }
+          } else {
+            this.matchUser = false;
+            console.log('pictureUid != currentUser');
+          }
+        })
       });
   }
 

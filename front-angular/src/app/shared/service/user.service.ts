@@ -54,7 +54,7 @@ export class UserService {
   };
   public isLogin: boolean | undefined;
 
-    // Google プロバイダ オブジェクトのインスタンスを作成。
+  // Google プロバイダ オブジェクトのインスタンスを作成。
   private provider = new GoogleAuthProvider();
 
   // Cloud Firestore
@@ -84,7 +84,7 @@ export class UserService {
       });
   }
 
-  createUserGoogle(): any {
+  createUserGoogle(): void {
     // getAuth()でAuthenticationを初期化。
     signInWithPopup(this.auth, this.provider)
       .then((result) => {
@@ -103,7 +103,7 @@ export class UserService {
     });
   }
 
-  registerUserInfo(value:{displayName: string}): any {
+  registerUserInfo(value:{displayName: string}): void {
     onAuthStateChanged(this.auth, async (user) => {
       // ログイン状態であれば下記を実行する
       if(user) {
@@ -114,7 +114,6 @@ export class UserService {
         if(this.file) {
           // 参照パスを設定
           this.storageRef = ref(this.storage, `userphoto/${this.file.name}`);
-
           await uploadBytes(this.storageRef, this.file, this.metadata)
             .then((_) => {
               console.log('Upload Blob File!');
@@ -148,28 +147,31 @@ export class UserService {
             console.log('addDoc complete!');
             this.router.navigateByUrl('/');
           });
-
       } else {
         console.log('ログインしていません');
         this.router.navigateByUrl('/signup');
       }
-
     });
   }
 
-  async getCurrentUser() {
-    onAuthStateChanged(this.auth, (user) => {
+  async getCurrentUser(): Promise<any> {
+    return onAuthStateChanged(this.auth, (user): void => {
+      this.isLogin = !!user;
       if(user) {
-        this.currentUser.displayName = user.displayName;
-        this.currentUser.photoURL = user.photoURL;
-        this.currentUser.uid = user.uid;
-        this.photoSrc = user.photoURL;
-        console.log('Get currentuser!');
+        return this.setCurrentUser(user);
       }
-    });
+    })
   }
 
-  async getUserInfo() {
+  setCurrentUser(user: any): void {
+    this.currentUser.displayName = user.displayName;
+    this.currentUser.photoURL = user.photoURL;
+    this.currentUser.uid = user.uid;
+    this.photoSrc = user.photoURL;
+    console.log('Get currentuser!');
+  }
+
+  async getUserInfo(): Promise<void> {
     if(this.currentUser.uid) {
       const docRef = doc(this.db, "users", this.currentUser.uid);
       const docSnap = await getDoc(docRef);
@@ -196,7 +198,7 @@ export class UserService {
     userText: string | null | undefined,
     twitterUrl: string | null | undefined,
     instagramUrl: string | null | undefined
-  }): any {
+  }): void {
     onAuthStateChanged(this.auth, async (user) => {
       // ログイン状態であれば下記を実行する
       if(user) {
