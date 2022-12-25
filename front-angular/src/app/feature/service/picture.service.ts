@@ -22,12 +22,21 @@ export class PictureService {
     })
   };
   private myFormData = new FormData();
-  private tagsData = {
+  private tagsData: {
+    tags: string[],
+    picture_id: any
+  } = {
     tags: [],
     picture_id: ''
   };
 
-  storeImage(image: File, tags: any): Observable<any> {
+  private favoriteData: {
+    picture_id: string[]
+  } = {
+    picture_id: [],
+  }
+
+  storeImage(image: File, tags: string[]): Observable<any> {
      // ↑で最初からheaders入ってるとなぜかダメで↓でappendだとうまくいく
     this.httpOption.headers.append('Content-Type', 'multipart/form-data');
     this.httpOption.headers.append('Accept', 'application/json');
@@ -50,9 +59,20 @@ export class PictureService {
       );
   }
 
+  setFavorite(id: []) {
+    const userUid = this.userService.currentUser.uid;
+    this.favoriteData.picture_id = id;
+    return this.http.post(`${this.apiUrl}/${userUid}/favorite`, this.favoriteData);
+  }
+
   getUserPictures() {
     const userUid = this.userService.currentUser.uid;
     return this.http.get(`${this.apiUrl}/${userUid}/userpicture/all`, this.httpOption)
+  }
+
+  getUserFavorites() {
+    const userUid = this.userService.currentUser.uid;
+    return this.http.get(`${this.apiUrl}/${userUid}/favorite/all`);
   }
 
   getUserPicture(id: any) {
@@ -66,4 +86,6 @@ export class PictureService {
         tap((response) => console.log(response))
       );
   }
+
+
 }

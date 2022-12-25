@@ -72,4 +72,12 @@ export class PictureComponent implements OnInit {
     });
   }
 
+  changeFavorite() {
+    const pictureId: any = [];
+    pictureId.push(this.userPicture.id);
+    console.log(pictureId);
+    this.pictureService.setFavorite(pictureId)
+      .subscribe((response) => console.log(response));
+  }
+
 }

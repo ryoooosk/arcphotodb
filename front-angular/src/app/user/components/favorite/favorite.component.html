@@ -50,10 +50,7 @@
   </div>
 
   <div class="mypage-main userpicture">
-    <div class="box" *ngFor="let userPicture of userPictures">
-      <a routerLink="/picture/{{ userPicture.id }}"><img src="{{ userPicture.path }}" alt="a"></a>
+    <div class="box" *ngFor="let favoritePicture of favoritePictures">
+      <a routerLink="/picture/{{ favoritePicture.id }}"><img src="{{ favoritePicture.path }}" alt="a"></a>
     </div>
   </div>
-
-
-</div>

@@ -15,7 +15,7 @@ class Tag extends Model
         'type'
     ];
 
-    public function pictures() {
+    public function tagpictures() {
         // ↓中間テーブル名は２つのテーブルをアルファベット順に"_"で繋いだものになる
         return $this->belongsToMany(Picture::class, 'tag_picture');
     }

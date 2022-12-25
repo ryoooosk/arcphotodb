@@ -40,7 +40,7 @@ class PictureController extends Controller
         }
     }
 
-    public function uploadTags(Request $request, $uid) {
+    public function setTagsPicture(Request $request) {
         if(is_array($request->tags)) {
             $id = $request->picture_id;
             // ↓写真に登録済みのタグ情報を一度削除
@@ -58,18 +58,39 @@ class PictureController extends Controller
         }
     }
 
+    public function setUserFavorite($uid, Request $request) {
+        // $requestのままだとidを拾えないvalueやキーで値を指定しないといけない？
+        // リクエストのデータ構造を知る必要あり
+        if($request->picture_id) {
+            $picture_id = $request->picture_id;
+            $user_id = User::where('uid', $uid)->value('id');
+            User::find($user_id)->favorite_pictures()->attach($picture_id);
+            return response()->json([
+                "message" => "Success Favorite",
+            ]);
+        } else {
+            return response()->json(["message" => "Not Found PitureId"]);
+        }
+    }
+
     public function getTagPictures(Request $request) {
         if(!(empty($request->tags))) {
             // 必要な写真データを１階層の配列に格納したい
             $data = [];
             foreach($request->tags as $id) {
-                $pictures = Tag::find($id)->pictures;
+                $pictures = Tag::find($id)->tagpictures;
                 foreach($pictures as $picture) {
                     array_push($data, $picture);
                 }
             }
             return response()->json($data);
         }
+    }
+
+    public function getUserFavorites($uid) {
+        $user_id = User::where('uid',$uid)->value('id');
+        $data = User::find($user_id)->favorite_pictures;
+        return response()->json($data);
     }
 
     public function getUserPictures($uid) {
@@ -91,5 +112,7 @@ class PictureController extends Controller
         Storage::disk('public')->delete("img/".$filename);
         return response()->json([$id, $data, $filename]);
     }
+
+
 
 }

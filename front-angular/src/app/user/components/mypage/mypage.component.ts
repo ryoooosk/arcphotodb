@@ -17,22 +17,16 @@ export class MypageComponent implements OnInit {
   ) { }
 
   public userPictures: any;
-  public userPicturesSrc: any = [];
 
   ngOnInit(): void {
     this.userService.getUserInfo();
 
     this.pictureService.getUserPictures()
       .pipe(
-        tap( (data) => {
+        tap((data) => {
           this.userPictures = data;
           console.log(this.userPictures);
-        }),
-        tap( () => {
-          for(let count = 0; count < this.userPictures.length; count++) {
-            this.userPicturesSrc.push(this.userPictures[count].path);
-          }
-        }),
+        })
       )
       .subscribe({
         error: (error) => console.log(error),

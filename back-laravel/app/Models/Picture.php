@@ -16,7 +16,7 @@ class Picture extends Model
         'user_id'
     ];
 
-    // ↓User-Pictures(1対多)の１側だから単数形
+    // ↓pictures-users(多対1)の１側だから単数形
     public function user() {
         return $this->belongsTo(User::class);
     }
