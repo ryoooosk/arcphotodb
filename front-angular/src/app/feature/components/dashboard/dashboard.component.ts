@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TagService } from '../../../core/service/tag.service';
+import { TagService } from '../../service/tag.service';
 import { tap } from 'rxjs';
+
 
 @Component({
   selector: 'app-dashboard',

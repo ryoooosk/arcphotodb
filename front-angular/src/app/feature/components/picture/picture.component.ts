@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PictureService } from '../../service/picture.service';
 import { UserService } from '../../../shared/service/user.service';
 import { Auth, onAuthStateChanged } from '@angular/fire/auth';
+import { FavoriteService } from '../../service/favorite.service';
 
 @Component({
   selector: 'app-picture',
@@ -14,9 +15,10 @@ export class PictureComponent implements OnInit {
 
   constructor(
     private auth: Auth,
+    protected userService: UserService,
     private pictureService: PictureService,
+    private favoriteService: FavoriteService,
     private activatedRoute: ActivatedRoute,
-    private userService: UserService,
     private router: Router,
     private location: Location
   ) {}
@@ -75,8 +77,7 @@ export class PictureComponent implements OnInit {
   changeFavorite() {
     const pictureId: any = [];
     pictureId.push(this.userPicture.id);
-    console.log(pictureId);
-    this.pictureService.setFavorite(pictureId)
+    this.favoriteService.setFavorite(pictureId)
       .subscribe((response) => console.log(response));
   }
 

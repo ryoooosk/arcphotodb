@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Storage;
 class PictureController extends Controller
 {
     public function uploadImage(Request $request, $uid) {
-        $data = $request->all();
         // hasFileでkey(image)を含むファイルがあるか確認
         if ($request->hasFile('image')) {
             // アップロードされたファイルを取得
@@ -21,14 +20,12 @@ class PictureController extends Controller
             $pictureName   = date('Y-H/i/s').'-'.$filename;
             // storage/app/public/img に保存される
             $image->storeAs('public/img/', $filename);
-
             Picture::create([
                 'name' => $pictureName,
                 'path' => asset('storage/img/'.$filename),
                 'uid' => $uid,
                 'user_id' => User::where("uid", $uid)->value('id')
             ]);
-
             return response()->json([
                 "message" => "Image Uploaded Succesfully",
                 "picture_id" => Picture::where('name', $pictureName)->value('id'),
@@ -64,14 +61,31 @@ class PictureController extends Controller
         if($request->picture_id) {
             $picture_id = $request->picture_id;
             $user_id = User::where('uid', $uid)->value('id');
-            User::find($user_id)->favorite_pictures()->attach($picture_id);
-            return response()->json([
-                "message" => "Success Favorite",
-            ]);
+            $user = new User();
+            if(!($user->is_favorite($picture_id))) {
+                User::find($user_id)->favorite_pictures()->attach($picture_id);
+            }
+            // is_favorite()がいつもfalseになっている
+            if($user->is_favorite($picture_id)) {
+                User::find($user_id)->favorite_pictures()->detach($picture_id);
+            }
+            return response()->json(["message" => "Success Favorite"]);
         } else {
             return response()->json(["message" => "Not Found PitureId"]);
         }
     }
+
+    // public function removeUserFavorite($uid, Request $request) {
+    //     if($request->picture_id) {
+    //         $picture_id = $request->picture_id;
+    //         $user_id = User::where('uid', $uid)->value('id');
+    //         $user = new User();
+    //         if($user->is_favorite($picture_id)) {
+    //             User::find($user_id)->favorite_pictures()->detach($picture_id);
+    //             return response()->json(["message" => "Remove Favorite"]);
+    //         }
+    //     }
+    // }
 
     public function getTagPictures(Request $request) {
         if(!(empty($request->tags))) {

@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('picture_user', function (Blueprint $table) {
+        Schema::create('favorites', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('picture_id');
             $table->unsignedBigInteger('user_id');
-            $table->primary(['picture_id','user_id']);
+            $table->unique(['picture_id','user_id']);
 
             $table->foreign('picture_id')->references('id')->on('pictures')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('picture_user');
+        Schema::dropIfExists('favorites');
     }
 };

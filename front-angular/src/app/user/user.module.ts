@@ -21,7 +21,8 @@ import { FavoriteComponent } from './components/favorite/favorite.component';
   ],
   exports: [
     MypageComponent,
-    UsereditComponent
+    UsereditComponent,
+    FavoriteComponent
   ]
 })
 export class UserModule { }

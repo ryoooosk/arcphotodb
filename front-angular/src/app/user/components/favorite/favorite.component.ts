@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../shared/service/user.service';
 import { PictureService } from '../../../feature/service/picture.service';
 import { tap } from 'rxjs';
+import { FavoriteService } from '../../../feature/service/favorite.service';
 
 @Component({
   selector: 'app-favorite',
@@ -12,6 +13,7 @@ export class FavoriteComponent implements OnInit {
 
   constructor(
     protected userService: UserService,
+    private favoriteService: FavoriteService,
     private pictureService: PictureService
   ) { }
 
@@ -23,7 +25,7 @@ export class FavoriteComponent implements OnInit {
   protected favoritePictures: any;
 
   getUserFavorites() {
-    this.pictureService.getUserFavorites()
+    this.favoriteService.getUserFavorites()
     .pipe(
       tap((data) => {
         this.favoritePictures = data;

@@ -8,7 +8,7 @@
       <button *ngIf="matchUser" mat-raised-button color="warn" (click)="deletePicture()">Delete</button>
     </div>
     <div class="favorite">
-      <button mat-raised-button color="primary" (click)="changeFavorite()">お気に入り</button>
+      <button *ngIf="this.userService.isLogin" mat-raised-button color="primary" (click)="changeFavorite()">お気に入り</button>
     </div>
   </div>
 </div>

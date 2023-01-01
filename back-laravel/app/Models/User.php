@@ -26,11 +26,11 @@ class User extends Authenticatable
         return $this->hasMany(Favorite::class);
     }
 
-    public function is_bookmark($picture_id) {
-        return $this->favorites()->where('picture_id',$picture_id)->exist();
+    public function is_favorite($picture_id) {
+        return $this->favorites()->where('picture_id', $picture_id)->exists();
     }
 
     public function favorite_pictures() {
-        return $this->belongsToMany(Picture::class, 'picture_user');
+        return $this->belongsToMany(Picture::class, 'favorites');
     }
 }

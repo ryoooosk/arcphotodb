@@ -19,21 +19,20 @@ export class MypageComponent implements OnInit {
   public userPictures: any;
 
   ngOnInit(): void {
-    this.userService.getUserInfo();
 
     this.pictureService.getUserPictures()
       .pipe(
         tap((data) => {
           this.userPictures = data;
-          console.log(this.userPictures);
         })
       )
       .subscribe({
         error: (error) => console.log(error),
         complete: () => {
-          console.log('Get Userphoto!')
+          console.log(this.userPictures, 'Get Userphoto!');
         }
       });
+      
   }
 
 }

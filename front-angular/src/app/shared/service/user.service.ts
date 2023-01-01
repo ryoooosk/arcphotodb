@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 // Angular Fire
-import { Auth, signInWithPopup, getAuth, updateProfile, onAuthStateChanged } from '@angular/fire/auth';
-import { createUserWithEmailAndPassword, GoogleAuthProvider } from '@firebase/auth';
+import { Auth, getAuth, updateProfile, onAuthStateChanged } from '@angular/fire/auth';
 import { getDownloadURL, getStorage, ref, uploadBytes } from '@angular/fire/storage';
 import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
 
@@ -15,19 +13,9 @@ import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
 export class UserService {
 
   constructor(
-    private afAuth: Auth,
+    private auth: Auth,
     private router: Router,
-    private http: HttpClient
   ) { }
-
-  // HTTP API
-  private apiUrl = "http://localhost/api/user/";
-  private httpOption = {
-    // HTTPヘッダとは、Webコンテンツの伝送に用いられるHTTPで、メッセージの前半にある制御情報を記した領域のこと。 WebサーバやWebブラウザが相手方に伝えたい情報を格納する部分で、利用者の目には直接触れない。
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
 
   // JavaScript FileAPI
   private reader =  new FileReader();
@@ -42,7 +30,7 @@ export class UserService {
   private storageRef: any;
 
   // Firebase Auth
-  private auth: any = getAuth();
+  private fireAuth: any = getAuth();
   public currentUser: {
     displayName: string | null,
     photoURL: string | null,
@@ -52,10 +40,8 @@ export class UserService {
     photoURL: '',
     uid: ''
   };
-  public isLogin: boolean | undefined;
 
-  // Google プロバイダ オブジェクトのインスタンスを作成。
-  private provider = new GoogleAuthProvider();
+  public isLogin: boolean | undefined;
 
   // Cloud Firestore
   private db = getFirestore();
@@ -73,28 +59,6 @@ export class UserService {
 
 
   // Functions
-  createUserEmail(email: string, password: string): Promise<void> {
-    return createUserWithEmailAndPassword(this.afAuth, email, password)
-      // ユーザ登録が成功すると自動的に作成したユーザーでログインされ、userCredential にユーザーオブジェクト入る。
-      .then((userCredential) => {
-        const { user } = userCredential;
-        const createUser = { uid: user.uid, email: user.email };
-        this.http.post(`${this.apiUrl}create`, createUser, this.httpOption)
-          .subscribe(_ => console.log('usercreate success!'));
-      });
-  }
-
-  createUserGoogle(): void {
-    // getAuth()でAuthenticationを初期化。
-    signInWithPopup(this.auth, this.provider)
-      .then((result) => {
-        const credential: any = GoogleAuthProvider.credentialFromResult(result);
-        const token: any = credential.accessToken;
-        const user = result.user;
-        this.router.navigateByUrl('/newuser')
-      });
-  }
-
   previewUserPhoto(photo: any) {
     this.file = photo.target.files[0];
     this.reader.readAsDataURL(this.file);
@@ -104,7 +68,7 @@ export class UserService {
   }
 
   registerUserInfo(value:{displayName: string}): void {
-    onAuthStateChanged(this.auth, async (user) => {
+    onAuthStateChanged(this.fireAuth, async (user) => {
       // ログイン状態であれば下記を実行する
       if(user) {
         console.log(user);
@@ -126,14 +90,14 @@ export class UserService {
                   this.currentUser.photoURL = downloadURL;
                   // Authenticationのuserをアップデート←下の非同期処理が先に走ってくれれば不要。
                   const value = this.currentUser;
-                  updateProfile(this.auth.currentUser, value)
+                  updateProfile(this.fireAuth.currentUser, value)
                     .then((_) => console.log('updateProfile (if File)!'));
                 })
             })
         }
 
         // await同士は同期処理になるものの、uploadBytesのthenの終了前に↓が走り始めてしまう。
-        await updateProfile(this.auth.currentUser, this.currentUser)
+        await updateProfile(this.fireAuth.currentUser, this.currentUser)
           .then((_) => console.log('updateProfile!'));
         await setDoc(doc(this.db, "users", user.uid) ,{
           displayName: this.currentUser.displayName,
@@ -155,7 +119,7 @@ export class UserService {
   }
 
   async getCurrentUser(): Promise<any> {
-    return onAuthStateChanged(this.auth, (user): void => {
+    return onAuthStateChanged(this.fireAuth, (user): void => {
       this.isLogin = !!user;
       if(user) {
         return this.setCurrentUser(user);
@@ -177,20 +141,23 @@ export class UserService {
       const docSnap = await getDoc(docRef);
 
       if(docSnap.exists()) {
-        const userInfo = docSnap.data();
-        this.userInfo.displayName = userInfo['displayName'];
-        this.userInfo.userText = userInfo['userText'];
-        this.userInfo.twitterUrl = userInfo['twitterUrl'];
-        this.userInfo.instagramUrl = userInfo['instagramUrl'];
-        console.log('Get userinfo!');
-        } else {
-          console.log("No document for currentuser");
-        }
+        const userInfo: any = docSnap.data();
+        return this.setUserInfo(userInfo);
       } else {
-        console.log('Not found currentUser uid');
+        return console.log("No document for currentuser");
       }
+    } else {
+      console.log('Not found currentUser uid');
     }
+  }
 
+  setUserInfo(userInfo: any) {
+    this.userInfo.displayName = userInfo['displayName'];
+    this.userInfo.userText = userInfo['userText'];
+    this.userInfo.twitterUrl = userInfo['twitterUrl'];
+    this.userInfo.instagramUrl = userInfo['instagramUrl'];
+    console.log('Get userinfo!');
+  }
 
   // registerUserInfoとほぼ同じだから一緒にしてしまおう
   updateUserInfo(value: {
@@ -199,7 +166,7 @@ export class UserService {
     twitterUrl: string | null | undefined,
     instagramUrl: string | null | undefined
   }): void {
-    onAuthStateChanged(this.auth, async (user) => {
+    onAuthStateChanged(this.fireAuth, async (user) => {
       // ログイン状態であれば下記を実行する
       if(user) {
         console.log(user);
@@ -222,14 +189,14 @@ export class UserService {
                   this.currentUser.photoURL = downloadURL;
                   // Authenticationのuserをアップデート←下の非同期処理が先に走ってくれれば不要。
                   const value = this.currentUser;
-                  updateProfile(this.auth.currentUser, value)
+                  updateProfile(this.fireAuth.currentUser, value)
                     .then((_) => console.log('updateProfile (if File)!'));
                 })
             })
         }
 
         // await同士は同期処理になるものの、uploadBytesのthenの終了前に↓が走り始めてしまう。
-        await updateProfile(this.auth.currentUser, this.currentUser)
+        await updateProfile(this.fireAuth.currentUser, this.currentUser)
           .then((_) => console.log('updateProfile!'));
         // ↓初期設定時に空だとエラーになってまう
         await setDoc(doc(this.db, "users", user.uid) ,{
