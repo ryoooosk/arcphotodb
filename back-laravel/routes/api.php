@@ -29,6 +29,7 @@ Route::prefix('image')->group(function() {
     Route::post('/{uid}/store', [PictureController::class, 'uploadImage']);
     Route::post('/{uid}/store/tags', [PictureController::class, 'setTagsPicture']);
     Route::post('/{uid}/favorite/set', [PictureController::class, 'changeUserFavorite']);
+    Route::get('/all', [PictureController::class, 'getAllPictures']);
     Route::get('/{uid}/userpicture/all', [PictureController::class, 'getUserPictures']);
     Route::get('/{uid}/favorite/all', [PictureController::class, 'getUserFavorites']);
     Route::get('/userpicture/{id}', [PictureController::class, 'getUserPicture']);

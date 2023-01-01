@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Storage;
 
 class PictureController extends Controller
 {
+    public function getAllPictures() {
+        $data = Picture::all();
+        return response()->json($data);
+    }
+
     public function uploadImage(Request $request, $uid) {
         // hasFileでkey(image)を含むファイルがあるか確認
         if ($request->hasFile('image')) {

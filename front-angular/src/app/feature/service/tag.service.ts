@@ -39,4 +39,9 @@ export class TagService {
     return this.http.post(url, this.tagsData, this.httpOption);
   }
 
+  getAllPictures(): Observable<any> {
+    const url = `${this.apiUrl}/all`;
+    return this.http.get(url);
+  }
+
 }

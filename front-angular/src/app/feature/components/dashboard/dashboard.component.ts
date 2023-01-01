@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TagService } from '../../service/tag.service';
-import { tap } from 'rxjs';
 
 
 @Component({
@@ -15,6 +14,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getAllPicture();
   }
 
   protected placeHide: boolean = true;
@@ -29,6 +29,14 @@ export class DashboardComponent implements OnInit {
     if(this.placeHide === true) {
       this.placeHide = false;
     } else { this.placeHide = true; }
+  }
+
+  getAllPicture() {
+    this.tagService.getAllPictures()
+      .subscribe((response) => {
+        this.tagService.tagPictures = response;
+        console.log(this.tagService.tagPictures);
+      });
   }
 
   getPicture() {
