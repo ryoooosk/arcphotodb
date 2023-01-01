@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../shared/service/user.service';
 import { PictureService } from '../../../feature/service/picture.service';
-import { tap } from 'rxjs';
-
 
 @Component({
   selector: 'app-mypage',
@@ -21,18 +19,8 @@ export class MypageComponent implements OnInit {
   ngOnInit(): void {
 
     this.pictureService.getUserPictures()
-      .pipe(
-        tap((data) => {
-          this.userPictures = data;
-        })
-      )
-      .subscribe({
-        error: (error) => console.log(error),
-        complete: () => {
-          console.log(this.userPictures, 'Get Userphoto!');
-        }
-      });
-      
+      .subscribe((data) => this.userPictures = data);
+
   }
 
 }

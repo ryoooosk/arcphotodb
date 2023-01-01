@@ -33,7 +33,7 @@ export class PictureComponent implements OnInit {
   protected matchUser: boolean;
 
   // 一つ前の画面に戻る
-  goBack() {
+  protected goBack() {
     this.location.back();
   }
 
@@ -82,7 +82,7 @@ export class PictureComponent implements OnInit {
     this.favoriteService.changeFavorite(pictureId)
       .subscribe((response) => {
         console.log(response);
-        this.location.back();
+        this.goBack();
       });
   }
 
