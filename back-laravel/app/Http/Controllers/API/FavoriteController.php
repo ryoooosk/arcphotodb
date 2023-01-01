@@ -9,9 +9,8 @@ use Illuminate\Http\Request;
 class FavoriteController extends Controller
 {
     public function changeUserFavorite($uid, Request $request) {
-        // $requestのままだとidを拾えないvalueやキーで値を指定しないといけない？
         // リクエストのデータ構造を知る必要あり
-        $picture_id = $request->picture_id;
+        $picture_id = $request->all();
         if($picture_id) {
             $user_id = User::where('uid', $uid)->value('id');
             $user = new User();

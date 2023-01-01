@@ -30,7 +30,7 @@ export class FavoriteService {
   changeFavorite(id: []) {
     this.favoriteData.picture_id = id;
     const url = `${this.apiUrl}/${this.userService.currentUser.uid}/favorite/set`;
-    return this.http.post(url, this.favoriteData, this.httpOption);
+    return this.http.post(url, id, this.httpOption);
   }
 
   getUserFavorites() {

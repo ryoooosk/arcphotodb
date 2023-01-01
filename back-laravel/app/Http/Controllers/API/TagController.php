@@ -28,10 +28,11 @@ class TagController extends Controller
     }
 
     public function getTagPictures(Request $request) {
-        if(!(empty($request->tags))) {
+        $tags = $request->all();
+        if(!(empty($tags))) {
             // 必要な写真データを１階層の配列に格納したい
             $data = [];
-            foreach($request->tags as $id) {
+            foreach($tags as $id) {
                 $pictures = Tag::find($id)->tagpictures;
                 foreach($pictures as $picture) {
                     array_push($data, $picture);

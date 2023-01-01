@@ -35,8 +35,7 @@ export class TagService {
 
   getPictures(tags: any): Observable<any> {
     const url = `${this.apiUrl}/get/tags`;
-    this.tagsData.tags = tags;
-    return this.http.post(url, this.tagsData, this.httpOption);
+    return this.http.post(url, tags, this.httpOption);
   }
 
   getAllPictures(): Observable<any> {
