@@ -15,9 +15,11 @@ export class PictureComponent implements OnInit {
 
   constructor(
     private auth: Auth,
+    // service
     protected userService: UserService,
     private pictureService: PictureService,
     private favoriteService: FavoriteService,
+
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private location: Location
@@ -77,8 +79,11 @@ export class PictureComponent implements OnInit {
   changeFavorite() {
     const pictureId: any = [];
     pictureId.push(this.userPicture.id);
-    this.favoriteService.setFavorite(pictureId)
-      .subscribe((response) => console.log(response));
+    this.favoriteService.changeFavorite(pictureId)
+      .subscribe((response) => {
+        console.log(response);
+        this.location.back();
+      });
   }
 
 }

@@ -14,7 +14,6 @@ export class FavoriteComponent implements OnInit {
   constructor(
     protected userService: UserService,
     private favoriteService: FavoriteService,
-    private pictureService: PictureService
   ) { }
 
   ngOnInit(): void {

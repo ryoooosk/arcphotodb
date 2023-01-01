@@ -27,16 +27,10 @@ export class FavoriteService {
     picture_id: [],
   }
 
-  setFavorite(id: []) {
+  changeFavorite(id: []) {
     this.favoriteData.picture_id = id;
     const url = `${this.apiUrl}/${this.userService.currentUser.uid}/favorite/set`;
-    return this.http.post(url, this.favoriteData);
-  }
-
-  removeFavorite(id: []) {
-    this.favoriteData.picture_id = id;
-    const url = `${this.apiUrl}/${this.userService.currentUser.uid}/favorite/remove`;
-    return this.http.post(url, this.favoriteData);
+    return this.http.post(url, this.favoriteData, this.httpOption);
   }
 
   getUserFavorites() {
