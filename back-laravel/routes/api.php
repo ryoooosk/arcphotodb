@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\PictureController;
+use App\Http\Controllers\API\TagController;
+use App\Http\Controllers\API\FavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,12 +29,12 @@ Route::prefix('user')->group(function() {
 
 Route::prefix('image')->group(function() {
     Route::post('/{uid}/store', [PictureController::class, 'uploadImage']);
-    Route::post('/{uid}/store/tags', [PictureController::class, 'setTagsPicture']);
-    Route::post('/{uid}/favorite/set', [PictureController::class, 'changeUserFavorite']);
+    Route::post('/{uid}/store/tags', [TagController::class, 'setTagsPicture']);
+    Route::post('/{uid}/favorite/set', [FavoriteController::class, 'changeUserFavorite']);
+    Route::post('/get/tags', [TagController::class, 'getTagPictures']);
     Route::get('/all', [PictureController::class, 'getAllPictures']);
     Route::get('/{uid}/userpicture/all', [PictureController::class, 'getUserPictures']);
-    Route::get('/{uid}/favorite/all', [PictureController::class, 'getUserFavorites']);
+    Route::get('/{uid}/favorite/all', [FavoriteController::class, 'getUserFavorites']);
     Route::get('/userpicture/{id}', [PictureController::class, 'getUserPicture']);
     Route::delete('/{uid}/userpicture/{id}/delete', [PictureController::class, 'deleteUserPicture']);
-    Route::post('/get/tags', [PictureController::class, 'getTagPictures']);
 });
