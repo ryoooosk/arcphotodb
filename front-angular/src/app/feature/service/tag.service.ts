@@ -9,7 +9,6 @@ import { Observable } from 'rxjs';
 export class TagService {
 
   constructor(
-    private pictureService: PictureService,
     private http: HttpClient
   ) { }
 
@@ -23,7 +22,6 @@ export class TagService {
   };
 
   public tagPictures: any;
-  public tagPicturesSrc: any = [];
 
   public tagsData: {
     tags: string[],

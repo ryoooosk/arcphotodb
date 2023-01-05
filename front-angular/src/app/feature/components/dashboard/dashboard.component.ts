@@ -43,23 +43,15 @@ export class DashboardComponent implements OnInit {
     const result = this.loop(this.placeTags);
     this.tagService.getPictures(result)
       .subscribe((response) => {
-        // 初期化
-        this.tagService.tagPictures = null;
-        this.tagService.tagPicturesSrc = [];
-
-        if(response) {
-          this.tagService.tagPictures = response;
-          console.log(this.tagService.tagPictures);
-          for(let i = 0; i < this.tagService.tagPictures.length; i+=1) {
-            this.tagService.tagPicturesSrc.push(this.tagService.tagPictures[i].path);
-          }
-        }
+        this.tagService.tagPictures = response;
+        console.log(this.tagService.tagPictures);
       });
   }
 
   loop(tag: object): any[] {
     const result: any[] = [];
-    for (let [key, value] of Object.entries(tag)) {
+    // Object.value()メソッドでオブジェクトの値だけの配列となる→for of文でループ
+    for (let value of Object.values(tag)) {
       if(value.selected === true) { result.push(value.id); }
     }
     if(result.length) { console.log(result); }

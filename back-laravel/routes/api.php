@@ -28,13 +28,16 @@ Route::prefix('user')->group(function() {
 });
 
 Route::prefix('image')->group(function() {
+    // post
     Route::post('/{uid}/store', [PictureController::class, 'uploadImage']);
     Route::post('/{uid}/store/tags', [TagController::class, 'setTagsPicture']);
     Route::post('/{uid}/favorite/set', [FavoriteController::class, 'changeUserFavorite']);
     Route::post('/get/tags', [TagController::class, 'getTagPictures']);
+    // get
     Route::get('/all', [PictureController::class, 'getAllPictures']);
     Route::get('/{uid}/userpicture/all', [PictureController::class, 'getUserPictures']);
     Route::get('/{uid}/favorite/all', [FavoriteController::class, 'getUserFavorites']);
     Route::get('/userpicture/{id}', [PictureController::class, 'getUserPicture']);
+    // delete
     Route::delete('/{uid}/userpicture/{id}/delete', [PictureController::class, 'deleteUserPicture']);
 });
