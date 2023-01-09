@@ -14,7 +14,6 @@ export class SignupComponent implements OnInit {
   protected user = {email: '', password: ''};
 
   constructor(
-    private userService: UserService,
     private authService: AuthService,
     private router: Router
   ) { }
