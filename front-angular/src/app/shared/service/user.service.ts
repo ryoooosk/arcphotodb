@@ -118,12 +118,14 @@ export class UserService {
     });
   }
 
-  async getCurrentUser(): Promise<any> {
-    return onAuthStateChanged(this.fireAuth, (user): void => {
+  getCurrentUser(): any {
+    onAuthStateChanged(this.fireAuth, (user) => {
       this.isLogin = !!user;
       if(user) {
-        return this.setCurrentUser(user);
+        this.setCurrentUser(user);
+        return this.currentUser;
       }
+      else { return console.log('Not Found CurrentUser') }
     })
   }
 

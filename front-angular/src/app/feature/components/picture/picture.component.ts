@@ -1,10 +1,12 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+// Service
 import { PictureService } from '../../service/picture.service';
 import { UserService } from '../../../shared/service/user.service';
-import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 import { FavoriteService } from '../../service/favorite.service';
+// Firebase
+import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-picture',
@@ -37,30 +39,38 @@ export class PictureComponent implements OnInit {
     this.location.back();
   }
 
-  getUserPicture() {
+  async getUserPicture() {
     // ↓の式には+をつけない
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.userService.getCurrentUser();
     return this.pictureService.getUserPicture(id)
       .subscribe((response) => {
         // responseには取得した画像データ
         this.userPicture = response;
         // 画像データのuidとアクセスしたユーザーのuidが同じなら削除ボタンを表示する
+        // onAuthStateChangedで取得したデータをどこかに保持しておいて、一々呼び出さないようにしたい
+        // ただ、onAuthStateChangedでuser情報を保持する前に後の処理が走ってしまう。
         onAuthStateChanged(this.auth, (user) => {
-          if(user) {
-            if(this.userPicture.uid === user.uid) {
-              this.matchUser = true;
-              console.log('pictureUid = currentUid');
-            } else {
-              this.matchUser = false;
-              console.log('pictureUid != currentUser');
-            }
-          } else {
-            this.matchUser = false;
-            console.log('pictureUid != currentUser');
-          }
+          this.matchPictureUser(user);
         })
       });
+  }
+
+  matchPictureUser(user: any) {
+    // 引数はcurrentUserを想定
+    if(user) {
+      // ngOnInitにて、表示されているpicture情報はuserPictureプロパティに格納されている
+      if(this.userPicture.uid === user.uid) {
+        this.matchUser = true;
+        console.log('pictureUid = currentUid');
+      } else {
+        this.matchUser = false;
+        console.log('pictureUid != currentUser');
+      }
+    } else {
+      this.matchUser = false;
+      console.log('Not Found CurrentUser');
+    }
+
   }
 
   deletePicture() {
@@ -73,7 +83,7 @@ export class PictureComponent implements OnInit {
           console.log('Delte userpicture success!'),
           this.router.navigateByUrl('/mypage');
         }
-    });
+      });
   }
 
   changeFavorite() {

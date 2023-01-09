@@ -41,7 +41,6 @@ export class UploadComponent implements OnInit {
   }
 
   store() {
-    // tags連想配列をループで回して、値だけの配列にしたい
     const result = [];
     // Object.entries→オブジェクトを[key, value](key: value)の形に抽出する
     for (let [key, value] of Object.entries(this.tags)) {

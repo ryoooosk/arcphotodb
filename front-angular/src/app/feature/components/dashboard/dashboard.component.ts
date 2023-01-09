@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TagService } from '../../service/tag.service';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -19,10 +18,10 @@ export class DashboardComponent implements OnInit {
 
   protected placeHide: boolean = true;
   protected placeTags = {
-    chiyoda: { 'id': 1, selected: false },
-    minato: { 'id': 2, selected: false },
+    chiyoda:  { 'id': 1, selected: false },
+    minato:   { 'id': 2, selected: false },
     shinjuku: { 'id': 3, selected: false },
-    shibuya: { 'id': 4, selected: false }
+    shibuya:  { 'id': 4, selected: false }
   }
 
   openClose() {
